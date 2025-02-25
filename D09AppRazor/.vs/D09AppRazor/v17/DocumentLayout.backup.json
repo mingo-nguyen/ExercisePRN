@@ -1,0 +1,359 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Coding\\C#\\D09AppRazor\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|d:\\coding\\c#\\d09apprazor\\d09apprazor\\pages\\students\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|solutionrelative:d09apprazor\\pages\\students\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|d:\\coding\\c#\\d09apprazor\\d09apprazor\\pages\\students\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|solutionrelative:d09apprazor\\pages\\students\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|d:\\coding\\c#\\d09apprazor\\d09apprazor\\pages\\students\\delete.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|solutionrelative:d09apprazor\\pages\\students\\delete.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|d:\\coding\\c#\\d09apprazor\\d09apprazor\\pages\\students\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|solutionrelative:d09apprazor\\pages\\students\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|d:\\coding\\c#\\d09apprazor\\d09apprazor\\pages\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|solutionrelative:d09apprazor\\pages\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|d:\\coding\\c#\\d09apprazor\\d09apprazor\\pages\\students\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|solutionrelative:d09apprazor\\pages\\students\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|d:\\coding\\c#\\d09apprazor\\d09apprazor\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|solutionrelative:d09apprazor\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|d:\\coding\\c#\\d09apprazor\\d09apprazor\\pages\\students\\details.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|solutionrelative:d09apprazor\\pages\\students\\details.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|d:\\coding\\c#\\d09apprazor\\d09apprazor\\model\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|solutionrelative:d09apprazor\\model\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|d:\\coding\\c#\\d09apprazor\\d09apprazor\\pages\\students\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|solutionrelative:d09apprazor\\pages\\students\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|d:\\coding\\c#\\d09apprazor\\d09apprazor\\pages\\students\\create.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|solutionrelative:d09apprazor\\pages\\students\\create.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|d:\\coding\\c#\\d09apprazor\\d09apprazor\\pages\\students\\edit.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|solutionrelative:d09apprazor\\pages\\students\\edit.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|d:\\coding\\c#\\d09apprazor\\d09apprazor\\pages\\students\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|solutionrelative:d09apprazor\\pages\\students\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|d:\\coding\\c#\\d09apprazor\\d09apprazor\\pages\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|solutionrelative:d09apprazor\\pages\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|d:\\coding\\c#\\d09apprazor\\d09apprazor\\pages\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|solutionrelative:d09apprazor\\pages\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|d:\\coding\\c#\\d09apprazor\\d09apprazor\\pages\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|solutionrelative:d09apprazor\\pages\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|d:\\coding\\c#\\d09apprazor\\d09apprazor\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|solutionrelative:d09apprazor\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|d:\\coding\\c#\\d09apprazor\\d09apprazor\\model\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|solutionrelative:d09apprazor\\model\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|d:\\coding\\c#\\d09apprazor\\d09apprazor\\controllers\\studentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|solutionrelative:d09apprazor\\controllers\\studentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|d:\\coding\\c#\\d09apprazor\\d09apprazor\\d09apprazor.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{0FB9F782-3578-4E90-8BE6-5F70E90EFDA1}|D09AppRazor\\D09AppRazor.csproj|solutionrelative:d09apprazor\\d09apprazor.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Error.cshtml",
+              "DocumentMoniker": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\Error.cshtml",
+              "RelativeDocumentMoniker": "D09AppRazor\\Pages\\Error.cshtml",
+              "ToolTip": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\Error.cshtml",
+              "RelativeToolTip": "D09AppRazor\\Pages\\Error.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-25T03:22:38.839Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "StudentsController.cs",
+              "DocumentMoniker": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Controllers\\StudentsController.cs",
+              "RelativeDocumentMoniker": "D09AppRazor\\Controllers\\StudentsController.cs",
+              "ToolTip": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Controllers\\StudentsController.cs",
+              "RelativeToolTip": "D09AppRazor\\Controllers\\StudentsController.cs",
+              "ViewState": "AgIAACkAAAAAAAAAAAAwwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T04:09:25.095Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\Students\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "D09AppRazor\\Pages\\Students\\Index.cshtml.cs",
+              "ToolTip": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\Students\\Index.cshtml.cs",
+              "RelativeToolTip": "D09AppRazor\\Pages\\Students\\Index.cshtml.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAAAEgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-20T09:13:04.335Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\Students\\Index.cshtml",
+              "RelativeDocumentMoniker": "D09AppRazor\\Pages\\Students\\Index.cshtml",
+              "ToolTip": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\Students\\Index.cshtml*",
+              "RelativeToolTip": "D09AppRazor\\Pages\\Students\\Index.cshtml*",
+              "ViewState": "AgIAAFkAAAAAAAAAAADwv2UAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-20T09:13:04.228Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Delete.cshtml.cs",
+              "DocumentMoniker": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\Students\\Delete.cshtml.cs",
+              "RelativeDocumentMoniker": "D09AppRazor\\Pages\\Students\\Delete.cshtml.cs",
+              "ToolTip": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\Students\\Delete.cshtml.cs",
+              "RelativeToolTip": "D09AppRazor\\Pages\\Students\\Delete.cshtml.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAACkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-20T09:13:04.104Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Delete.cshtml",
+              "DocumentMoniker": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\Students\\Delete.cshtml",
+              "RelativeDocumentMoniker": "D09AppRazor\\Pages\\Students\\Delete.cshtml",
+              "ToolTip": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\Students\\Delete.cshtml",
+              "RelativeToolTip": "D09AppRazor\\Pages\\Students\\Delete.cshtml",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAuwBoAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-20T09:13:03.983Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Details.cshtml.cs",
+              "DocumentMoniker": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\Students\\Details.cshtml.cs",
+              "RelativeDocumentMoniker": "D09AppRazor\\Pages\\Students\\Details.cshtml.cs",
+              "ToolTip": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\Students\\Details.cshtml.cs",
+              "RelativeToolTip": "D09AppRazor\\Pages\\Students\\Details.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-20T09:13:03.848Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\Students\\Details.cshtml",
+              "RelativeDocumentMoniker": "D09AppRazor\\Pages\\Students\\Details.cshtml",
+              "ToolTip": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\Students\\Details.cshtml",
+              "RelativeToolTip": "D09AppRazor\\Pages\\Students\\Details.cshtml",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAAB8AAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-20T09:13:03.728Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Create.cshtml.cs",
+              "DocumentMoniker": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\Students\\Create.cshtml.cs",
+              "RelativeDocumentMoniker": "D09AppRazor\\Pages\\Students\\Create.cshtml.cs",
+              "ToolTip": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\Students\\Create.cshtml.cs",
+              "RelativeToolTip": "D09AppRazor\\Pages\\Students\\Create.cshtml.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAA3wCQAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-20T09:13:03.319Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "D09AppRazor.csproj",
+              "DocumentMoniker": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\D09AppRazor.csproj",
+              "RelativeDocumentMoniker": "D09AppRazor\\D09AppRazor.csproj",
+              "ToolTip": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\D09AppRazor.csproj",
+              "RelativeToolTip": "D09AppRazor\\D09AppRazor.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-02-20T09:06:13.933Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Edit.cshtml.cs",
+              "DocumentMoniker": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\Students\\Edit.cshtml.cs",
+              "RelativeDocumentMoniker": "D09AppRazor\\Pages\\Students\\Edit.cshtml.cs",
+              "ToolTip": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\Students\\Edit.cshtml.cs",
+              "RelativeToolTip": "D09AppRazor\\Pages\\Students\\Edit.cshtml.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAA1wAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-20T09:13:03.594Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\Students\\Edit.cshtml",
+              "RelativeDocumentMoniker": "D09AppRazor\\Pages\\Students\\Edit.cshtml",
+              "ToolTip": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\Students\\Edit.cshtml",
+              "RelativeToolTip": "D09AppRazor\\Pages\\Students\\Edit.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-20T09:13:03.47Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\Students\\Create.cshtml",
+              "RelativeDocumentMoniker": "D09AppRazor\\Pages\\Students\\Create.cshtml",
+              "ToolTip": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\Students\\Create.cshtml",
+              "RelativeToolTip": "D09AppRazor\\Pages\\Students\\Create.cshtml",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAuwDIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-20T09:13:03.119Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Program.cs",
+              "RelativeDocumentMoniker": "D09AppRazor\\Program.cs",
+              "ToolTip": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Program.cs",
+              "RelativeToolTip": "D09AppRazor\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABRAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-20T09:10:48.075Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Model\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "D09AppRazor\\Model\\AppDbContext.cs",
+              "ToolTip": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Model\\AppDbContext.cs",
+              "RelativeToolTip": "D09AppRazor\\Model\\AppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-20T09:08:07.166Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Student.cs",
+              "DocumentMoniker": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Model\\Student.cs",
+              "RelativeDocumentMoniker": "D09AppRazor\\Model\\Student.cs",
+              "ToolTip": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Model\\Student.cs",
+              "RelativeToolTip": "D09AppRazor\\Model\\Student.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-20T09:06:28.136Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "_ViewStart.cshtml",
+              "DocumentMoniker": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\_ViewStart.cshtml",
+              "RelativeDocumentMoniker": "D09AppRazor\\Pages\\_ViewStart.cshtml",
+              "ToolTip": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\_ViewStart.cshtml",
+              "RelativeToolTip": "D09AppRazor\\Pages\\_ViewStart.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-20T09:05:30.595Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "D09AppRazor\\Pages\\_ViewImports.cshtml",
+              "ToolTip": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\_ViewImports.cshtml",
+              "RelativeToolTip": "D09AppRazor\\Pages\\_ViewImports.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-20T09:05:14.117Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "D09AppRazor\\Pages\\Index.cshtml.cs",
+              "ToolTip": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\Index.cshtml.cs",
+              "RelativeToolTip": "D09AppRazor\\Pages\\Index.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-20T09:04:32.515Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\Index.cshtml",
+              "RelativeDocumentMoniker": "D09AppRazor\\Pages\\Index.cshtml",
+              "ToolTip": "D:\\Coding\\C#\\D09AppRazor\\D09AppRazor\\Pages\\Index.cshtml",
+              "RelativeToolTip": "D09AppRazor\\Pages\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-20T09:04:27.128Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
