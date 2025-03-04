@@ -1,0 +1,139 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Coding\\C#\\ExercisePRN\\BlazorWebAppMovies\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C95A56A4-1EBD-4F29-8718-601262DEC75F}|BlazorWebAppMovies\\BlazorWebAppMovies.csproj|d:\\coding\\c#\\exerciseprn\\blazorwebappmovies\\blazorwebappmovies\\components\\pages\\moviepages\\create.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C95A56A4-1EBD-4F29-8718-601262DEC75F}|BlazorWebAppMovies\\BlazorWebAppMovies.csproj|solutionrelative:blazorwebappmovies\\components\\pages\\moviepages\\create.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C95A56A4-1EBD-4F29-8718-601262DEC75F}|BlazorWebAppMovies\\BlazorWebAppMovies.csproj|d:\\coding\\c#\\exerciseprn\\blazorwebappmovies\\blazorwebappmovies\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C95A56A4-1EBD-4F29-8718-601262DEC75F}|BlazorWebAppMovies\\BlazorWebAppMovies.csproj|solutionrelative:blazorwebappmovies\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C95A56A4-1EBD-4F29-8718-601262DEC75F}|BlazorWebAppMovies\\BlazorWebAppMovies.csproj|d:\\coding\\c#\\exerciseprn\\blazorwebappmovies\\blazorwebappmovies\\data\\blazorwebappmoviescontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C95A56A4-1EBD-4F29-8718-601262DEC75F}|BlazorWebAppMovies\\BlazorWebAppMovies.csproj|solutionrelative:blazorwebappmovies\\data\\blazorwebappmoviescontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C95A56A4-1EBD-4F29-8718-601262DEC75F}|BlazorWebAppMovies\\BlazorWebAppMovies.csproj|d:\\coding\\c#\\exerciseprn\\blazorwebappmovies\\blazorwebappmovies\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{C95A56A4-1EBD-4F29-8718-601262DEC75F}|BlazorWebAppMovies\\BlazorWebAppMovies.csproj|solutionrelative:blazorwebappmovies\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C95A56A4-1EBD-4F29-8718-601262DEC75F}|BlazorWebAppMovies\\BlazorWebAppMovies.csproj|d:\\coding\\c#\\exerciseprn\\blazorwebappmovies\\blazorwebappmovies\\models\\movie.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C95A56A4-1EBD-4F29-8718-601262DEC75F}|BlazorWebAppMovies\\BlazorWebAppMovies.csproj|solutionrelative:blazorwebappmovies\\models\\movie.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C95A56A4-1EBD-4F29-8718-601262DEC75F}|BlazorWebAppMovies\\BlazorWebAppMovies.csproj|d:\\coding\\c#\\exerciseprn\\blazorwebappmovies\\blazorwebappmovies\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C95A56A4-1EBD-4F29-8718-601262DEC75F}|BlazorWebAppMovies\\BlazorWebAppMovies.csproj|solutionrelative:blazorwebappmovies\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C95A56A4-1EBD-4F29-8718-601262DEC75F}|BlazorWebAppMovies\\BlazorWebAppMovies.csproj|d:\\coding\\c#\\exerciseprn\\blazorwebappmovies\\blazorwebappmovies\\migrations\\20250304064100_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C95A56A4-1EBD-4F29-8718-601262DEC75F}|BlazorWebAppMovies\\BlazorWebAppMovies.csproj|solutionrelative:blazorwebappmovies\\migrations\\20250304064100_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Create.razor",
+              "DocumentMoniker": "D:\\Coding\\C#\\ExercisePRN\\BlazorWebAppMovies\\BlazorWebAppMovies\\Components\\Pages\\MoviePages\\Create.razor",
+              "RelativeDocumentMoniker": "BlazorWebAppMovies\\Components\\Pages\\MoviePages\\Create.razor",
+              "ToolTip": "D:\\Coding\\C#\\ExercisePRN\\BlazorWebAppMovies\\BlazorWebAppMovies\\Components\\Pages\\MoviePages\\Create.razor",
+              "RelativeToolTip": "BlazorWebAppMovies\\Components\\Pages\\MoviePages\\Create.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-04T07:10:07.786Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "NavMenu.razor",
+              "DocumentMoniker": "D:\\Coding\\C#\\ExercisePRN\\BlazorWebAppMovies\\BlazorWebAppMovies\\Components\\Layout\\NavMenu.razor",
+              "RelativeDocumentMoniker": "BlazorWebAppMovies\\Components\\Layout\\NavMenu.razor",
+              "ToolTip": "D:\\Coding\\C#\\ExercisePRN\\BlazorWebAppMovies\\BlazorWebAppMovies\\Components\\Layout\\NavMenu.razor",
+              "RelativeToolTip": "BlazorWebAppMovies\\Components\\Layout\\NavMenu.razor",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-04T06:48:15.879Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "20250304064100_InitialCreate.cs",
+              "DocumentMoniker": "D:\\Coding\\C#\\ExercisePRN\\BlazorWebAppMovies\\BlazorWebAppMovies\\Migrations\\20250304064100_InitialCreate.cs",
+              "RelativeDocumentMoniker": "BlazorWebAppMovies\\Migrations\\20250304064100_InitialCreate.cs",
+              "ToolTip": "D:\\Coding\\C#\\ExercisePRN\\BlazorWebAppMovies\\BlazorWebAppMovies\\Migrations\\20250304064100_InitialCreate.cs",
+              "RelativeToolTip": "BlazorWebAppMovies\\Migrations\\20250304064100_InitialCreate.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T06:41:01.625Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BlazorWebAppMoviesContext.cs",
+              "DocumentMoniker": "D:\\Coding\\C#\\ExercisePRN\\BlazorWebAppMovies\\BlazorWebAppMovies\\Data\\BlazorWebAppMoviesContext.cs",
+              "RelativeDocumentMoniker": "BlazorWebAppMovies\\Data\\BlazorWebAppMoviesContext.cs",
+              "ToolTip": "D:\\Coding\\C#\\ExercisePRN\\BlazorWebAppMovies\\BlazorWebAppMovies\\Data\\BlazorWebAppMoviesContext.cs",
+              "RelativeToolTip": "BlazorWebAppMovies\\Data\\BlazorWebAppMoviesContext.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAUAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T06:38:47.501Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Coding\\C#\\ExercisePRN\\BlazorWebAppMovies\\BlazorWebAppMovies\\appsettings.json",
+              "RelativeDocumentMoniker": "BlazorWebAppMovies\\appsettings.json",
+              "ToolTip": "D:\\Coding\\C#\\ExercisePRN\\BlazorWebAppMovies\\BlazorWebAppMovies\\appsettings.json",
+              "RelativeToolTip": "BlazorWebAppMovies\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-03-04T06:29:19.456Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Coding\\C#\\ExercisePRN\\BlazorWebAppMovies\\BlazorWebAppMovies\\Program.cs",
+              "RelativeDocumentMoniker": "BlazorWebAppMovies\\Program.cs",
+              "ToolTip": "D:\\Coding\\C#\\ExercisePRN\\BlazorWebAppMovies\\BlazorWebAppMovies\\Program.cs",
+              "RelativeToolTip": "BlazorWebAppMovies\\Program.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAAADEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T06:29:18.801Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Movie.cs",
+              "DocumentMoniker": "D:\\Coding\\C#\\ExercisePRN\\BlazorWebAppMovies\\BlazorWebAppMovies\\Models\\Movie.cs",
+              "RelativeDocumentMoniker": "BlazorWebAppMovies\\Models\\Movie.cs",
+              "ToolTip": "D:\\Coding\\C#\\ExercisePRN\\BlazorWebAppMovies\\BlazorWebAppMovies\\Models\\Movie.cs",
+              "RelativeToolTip": "BlazorWebAppMovies\\Models\\Movie.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T06:26:26.178Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

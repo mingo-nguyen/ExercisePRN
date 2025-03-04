@@ -1,0 +1,45 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\Coding\\C#\\ExercisePRN\\BlazorWebAppMovies\\BlazorWebAppMovies\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BlazorWebAppMovies.bundle.scp.css",
+      "PackagePath": "staticwebassets\\BlazorWebAppMovies.nuh182gb2c.bundle.scp.css"
+    },
+    {
+      "Id": "D:\\Coding\\C#\\ExercisePRN\\BlazorWebAppMovies\\BlazorWebAppMovies\\wwwroot\\app.css",
+      "PackagePath": "staticwebassets\\app.css"
+    },
+    {
+      "Id": "D:\\Coding\\C#\\ExercisePRN\\BlazorWebAppMovies\\BlazorWebAppMovies\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "D:\\Coding\\C#\\ExercisePRN\\BlazorWebAppMovies\\BlazorWebAppMovies\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "D:\\Coding\\C#\\ExercisePRN\\BlazorWebAppMovies\\BlazorWebAppMovies\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.BlazorWebAppMovies.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.BlazorWebAppMovies.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.BlazorWebAppMovies.props",
+      "PackagePath": "build\\BlazorWebAppMovies.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.BlazorWebAppMovies.props",
+      "PackagePath": "buildMultiTargeting\\BlazorWebAppMovies.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.BlazorWebAppMovies.props",
+      "PackagePath": "buildTransitive\\BlazorWebAppMovies.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
