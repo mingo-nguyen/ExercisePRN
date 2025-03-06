@@ -1,0 +1,225 @@
+﻿@page "/orders/create"
+@using Microsoft.EntityFrameworkCore
+@using FoodShopBlazor.Models
+@using Microsoft.AspNetCore.SignalR.Client
+@inject IDbContextFactory<FoodShopBlazor.Data.FoodShopBlazorContext> DbFactory
+@inject NavigationManager NavigationManager
+@implements IAsyncDisposable
+
+<PageTitle>Create Order</PageTitle>
+
+<h1>Create New Order</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <EditForm Model="Order" OnValidSubmit="AddOrder" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert" />
+
+            <div class="mb-3">
+                <label for="customername" class="form-label">Customer Name:</label>
+                <InputText id="customername" @bind-Value="Order.CustomerName" class="form-control" />
+                <ValidationMessage For="() => Order.CustomerName" class="text-danger" />
+            </div>
+
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone Number:</label>
+                <InputText id="phone" @bind-Value="Order.Phone" class="form-control" />
+                <ValidationMessage For="() => Order.Phone" class="text-danger" />
+            </div>
+
+            <div class="mb-3">
+                <label for="deliveryaddress" class="form-label">Delivery Address:</label>
+                <InputText id="deliveryaddress" @bind-Value="Order.DeliveryAddress" class="form-control" />
+                <ValidationMessage For="() => Order.DeliveryAddress" class="text-danger" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Order Items:</label>
+                <div class="card">
+                    <div class="card-body">
+                        @if (foods != null)
+                        {
+                            @foreach (var food in foods)
+                            {
+                                <div class="form-check mb-2 d-flex align-items-center">
+                                    <input class="form-check-input me-2" type="checkbox"
+                                           @onchange="@(e => ToggleFoodSelection(food, (bool)e.Value))" />
+                                    <label class="form-check-label me-2">@food.Name ($@food.Price.ToString("0.00"))</label>
+                                    @if (selectedFoods.ContainsKey(food.Id))
+                                    {
+                                        <div class="ms-3">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary"
+                                                    @onclick="() => DecrementQuantity(food.Id)">
+                                                -
+                                            </button>
+                                            <span class="mx-2">@selectedFoods[food.Id]</span>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary"
+                                                    @onclick="() => IncrementQuantity(food.Id)">
+                                                +
+                                            </button>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <h4>Order Summary</h4>
+                @if (selectedFoods.Count > 0)
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in selectedFoods)
+                            {
+                                var food = foods.FirstOrDefault(f => f.Id == item.Key);
+                                if (food != null)
+                                {
+                                    <tr>
+                                        <td>@food.Name</td>
+                                        <td>@item.Value</td>
+                                        <td>$@food.Price.ToString("0.00")</td>
+                                        <td>$@((food.Price * item.Value).ToString("0.00"))</td>
+                                    </tr>
+                                }
+                            }
+                            <tr>
+                                <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                                <td>$@CalculateTotal().ToString("0.00")</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>No items selected</p>
+                }
+            </div>
+
+            <button type="submit" class="btn btn-primary" disabled="@(selectedFoods.Count == 0)">Place Order</button>
+            <a href="/orders" class="btn btn-secondary">Cancel</a>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Order Order { get; set; } = new() { OrderDate = DateTime.Now, Status = "Pending" };
+
+    private List<Food> foods = new();
+    private Dictionary<int, int> selectedFoods = new();
+    private HubConnection? hubConnection;
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        foods = await context.Food.ToListAsync();
+
+        // Initialize SignalR connection
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(NavigationManager.ToAbsoluteUri("/orderhub"))
+            .WithAutomaticReconnect()
+            .Build();
+
+        await hubConnection.StartAsync();
+    }
+
+    private void ToggleFoodSelection(Food food, bool isSelected)
+    {
+        if (isSelected)
+        {
+            if (!selectedFoods.ContainsKey(food.Id))
+            {
+                selectedFoods[food.Id] = 1;
+            }
+        }
+        else
+        {
+            selectedFoods.Remove(food.Id);
+        }
+    }
+
+    private void IncrementQuantity(int foodId)
+    {
+        if (selectedFoods.ContainsKey(foodId))
+        {
+            selectedFoods[foodId]++;
+        }
+    }
+
+    private void DecrementQuantity(int foodId)
+    {
+        if (selectedFoods.ContainsKey(foodId) && selectedFoods[foodId] > 1)
+        {
+            selectedFoods[foodId]--;
+        }
+    }
+
+    private decimal CalculateTotal()
+    {
+        decimal total = 0;
+        foreach (var item in selectedFoods)
+        {
+            var food = foods.FirstOrDefault(f => f.Id == item.Key);
+            if (food != null)
+            {
+                total += food.Price * item.Value;
+            }
+        }
+        return total;
+    }
+
+    private async Task AddOrder()
+    {
+        if (selectedFoods.Count == 0)
+            return;
+
+        using var context = DbFactory.CreateDbContext();
+
+        // Create order details from selected foods
+        Order.OrderDetails = new List<OrderDetail>();
+        foreach (var item in selectedFoods)
+        {
+            var food = await context.Food.FindAsync(item.Key);
+            if (food != null)
+            {
+                Order.OrderDetails.Add(new OrderDetail
+                    {
+                        FoodId = food.Id,
+                        Quantity = item.Value,
+                        UnitPrice = food.Price
+                    });
+            }
+        }
+
+        context.Order.Add(Order);
+        await context.SaveChangesAsync();
+
+        // Notify via SignalR about the new order
+        if (hubConnection is not null)
+        {
+            await hubConnection.SendAsync("NewOrderCreated", Order.Id);
+        }
+
+        NavigationManager.NavigateTo($"/orders/confirmation?id={Order.Id}");
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.DisposeAsync();
+        }
+    }
+}

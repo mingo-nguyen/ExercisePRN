@@ -1,0 +1,413 @@
+﻿@page "/restaurants/{RestaurantId:int}/order"
+@using Microsoft.EntityFrameworkCore
+@using FoodShopBlazor.Models
+@using FoodShopBlazor.Data
+@using FoodShopBlazor.Services
+@using Microsoft.AspNetCore.SignalR.Client
+@inject IDbContextFactory<FoodShopBlazorContext> DbFactory
+@inject NavigationManager NavigationManager
+@inject CartService CartService
+@implements IAsyncDisposable
+
+<PageTitle>Order Food</PageTitle>
+
+<h1>Place Your Order</h1>
+
+@if (restaurant == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">@restaurant.Name</h2>
+        </div>
+        <div class="card-body">
+            <p>@restaurant.Description</p>
+            <p><strong>Address:</strong> @restaurant.Address</p>
+            <p><strong>Phone:</strong> @restaurant.Phone</p>
+        </div>
+    </div>
+
+    <h3 class="mb-3">Menu</h3>
+
+    @if (menuItems == null || !menuItems.Any())
+    {
+        <div class="alert alert-warning">
+            <p><em>No menu items available</em></p>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var food in menuItems)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        @if (!string.IsNullOrEmpty(food.ImageUrl))
+                        {
+                            <img src="@food.ImageUrl" class="card-img-top" alt="@food.Name" style="height:200px; object-fit:cover;">
+                        }
+                        else
+                        {
+                            <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height:200px;">
+                                <span class="text-muted">No image available</span>
+                            </div>
+                        }
+                        <div class="card-body">
+                            <h5 class="card-title">@food.Name</h5>
+                            <p class="card-text">@food.Description</p>
+                            <p class="card-text"><strong>$@food.Price.ToString("0.00")</strong></p>
+                            <div class="d-flex align-items-center">
+                                <div class="input-group">
+                                    <button class="btn btn-sm btn-outline-secondary" @onclick="() => DecrementMenuQuantity(food.Id)">-</button>
+                                    <input type="number" class="form-control form-control-sm text-center" style="max-width: 60px;"
+                                           value="@GetMenuQuantity(food.Id)"
+                                           @onchange="@(e => UpdateMenuQuantity(food.Id, int.Parse(e.Value?.ToString() ?? "0")))" />
+                                    <button class="btn btn-sm btn-outline-secondary" @onclick="() => IncrementMenuQuantity(food.Id)">+</button>
+                                    <button class="btn btn-sm btn-primary" @onclick="() => AddToCart(food)">
+                                        Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    <div class="card mt-5 mb-4">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">Your Order</h3>
+        </div>
+        <div class="card-body">
+            @if (!CartService.CartItems.Any())
+            {
+                <p>Your cart is empty.</p>
+            }
+            else
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in CartService.CartItems)
+                        {
+                            <tr>
+                                <td>@item.Food.Name</td>
+                                <td>
+                                    <div class="input-group input-group-sm" style="max-width: 120px;">
+                                        <button class="btn btn-sm btn-outline-secondary" @onclick="() => DecreaseCartQuantity(item.Food.Id)">-</button>
+                                        <input type="number" class="form-control form-control-sm text-center" min="1"
+                                               value="@item.Quantity"
+                                               @onchange="@(e => UpdateCartQuantity(item.Food.Id, int.Parse(e.Value?.ToString() ?? "1")))" />
+                                        <button class="btn btn-sm btn-outline-secondary" @onclick="() => IncreaseCartQuantity(item.Food.Id)">+</button>
+                                    </div>
+                                </td>
+                                <td>$@item.Food.Price.ToString("0.00")</td>
+                                <td>$@((item.Food.Price * item.Quantity).ToString("0.00"))</td>
+                                <td>
+                                    <button class="btn btn-sm btn-danger" @onclick="() => RemoveFromCart(item.Food.Id)">
+                                        <i class="bi bi-trash"></i> Remove
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                            <td>$@(CartService.GetTotal().ToString("0.00"))</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="d-flex justify-content-between mb-4">
+                    <button class="btn btn-outline-danger" @onclick="ClearCart">Clear Cart</button>
+                    <button class="btn btn-success" @onclick="CheckOut" disabled="@(!CartService.CartItems.Any())">Proceed to Checkout</button>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="/restaurants" class="btn btn-secondary">Back to Restaurants</a>
+    </div>
+}
+
+@if (showCheckoutForm)
+{
+    <div class="modal fade show" style="display:block; background-color: rgba(0,0,0,0.5);" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Complete Your Order</h5>
+                    <button type="button" class="btn-close" @onclick="CloseCheckoutForm"></button>
+                </div>
+                <div class="modal-body">
+                    <EditForm Model="newOrder" OnValidSubmit="PlaceOrder">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary class="text-danger" role="alert" />
+
+                        <div class="mb-3">
+                            <label for="customerName" class="form-label">Your Name:</label>
+                            <InputText id="customerName" @bind-Value="newOrder.CustomerName" class="form-control" />
+                            <ValidationMessage For="() => newOrder.CustomerName" class="text-danger" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number:</label>
+                            <InputText id="phone" @bind-Value="newOrder.Phone" class="form-control" />
+                            <ValidationMessage For="() => newOrder.Phone" class="text-danger" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="deliveryAddress" class="form-label">Delivery Address:</label>
+                            <InputText id="deliveryAddress" @bind-Value="newOrder.DeliveryAddress" class="form-control" />
+                            <ValidationMessage For="() => newOrder.DeliveryAddress" class="text-danger" />
+                        </div>
+
+                        <h4>Order Summary</h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in CartService.CartItems)
+                                {
+                                    <tr>
+                                        <td>@item.Food.Name</td>
+                                        <td>@item.Quantity</td>
+                                        <td>$@item.Food.Price.ToString("0.00")</td>
+                                        <td>$@((item.Food.Price * item.Quantity).ToString("0.00"))</td>
+                                    </tr>
+                                }
+                                <tr>
+                                    <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                                    <td>$@(CartService.GetTotal().ToString("0.00"))</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success">Submit Order</button>
+                            <button type="button" class="btn btn-outline-secondary" @onclick="CloseCheckoutForm">Cancel</button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public int RestaurantId { get; set; }
+
+    private Restaurant restaurant;
+    private List<Food> menuItems;
+    private Order newOrder = new Order();
+    private bool showCheckoutForm = false;
+    private Dictionary<int, int> menuQuantities = new Dictionary<int, int>();
+    private HubConnection? hubConnection;
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        restaurant = await context.Restaurant
+            .FirstOrDefaultAsync(r => r.Id == RestaurantId);
+
+        if (restaurant != null)
+        {
+            menuItems = await context.Food
+                .Where(f => f.RestaurantId == RestaurantId)
+                .ToListAsync();
+        }
+
+        // Initialize menu quantities to 1
+        foreach (var food in menuItems ?? new List<Food>())
+        {
+            menuQuantities[food.Id] = 1;
+        }
+
+        // Initialize SignalR connection
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(NavigationManager.ToAbsoluteUri("/orderhub"))
+            .WithAutomaticReconnect()
+            .Build();
+
+        await hubConnection.StartAsync();
+
+        // Subscribe to cart changes
+        CartService.OnCartChanged += StateHasChanged;
+        CartService.OnCartChanged += () =>
+    {
+        InvokeAsync(StateHasChanged);
+    };
+    }
+
+    public void Dispose()
+    {
+        // Unsubscribe from cart changes
+        CartService.OnCartChanged -= StateHasChanged;
+    }
+
+    private int GetMenuQuantity(int foodId)
+    {
+        return menuQuantities.TryGetValue(foodId, out var quantity) ? quantity : 1;
+    }
+
+    private void UpdateMenuQuantity(int foodId, int quantity)
+    {
+        menuQuantities[foodId] = Math.Max(1, quantity);
+    }
+
+    private void IncrementMenuQuantity(int foodId)
+    {
+        if (menuQuantities.TryGetValue(foodId, out var quantity))
+        {
+            menuQuantities[foodId] = quantity + 1;
+        }
+        else
+        {
+            menuQuantities[foodId] = 2; // Start at 2 since we're incrementing from default 1
+        }
+    }
+
+    private void DecrementMenuQuantity(int foodId)
+    {
+        if (menuQuantities.TryGetValue(foodId, out var quantity) && quantity > 1)
+        {
+            menuQuantities[foodId] = quantity - 1;
+        }
+    }
+
+    private void AddToCart(Food food)
+    {
+        int quantity = GetMenuQuantity(food.Id);
+        CartService.AddToCart(food, quantity);
+        StateHasChanged(); // Force UI refresh
+    }
+
+    private void IncreaseCartQuantity(int foodId)
+    {
+        var item = CartService.CartItems.FirstOrDefault(i => i.Food.Id == foodId);
+        if (item != null)
+        {
+            CartService.UpdateQuantity(foodId, item.Quantity + 1);
+        }
+    }
+
+    private void DecreaseCartQuantity(int foodId)
+    {
+        var item = CartService.CartItems.FirstOrDefault(i => i.Food.Id == foodId);
+        if (item != null && item.Quantity > 1)
+        {
+            CartService.UpdateQuantity(foodId, item.Quantity - 1);
+        }
+    }
+
+    private void UpdateCartQuantity(int foodId, int quantity)
+    {
+        if (quantity > 0)
+        {
+            CartService.UpdateQuantity(foodId, quantity);
+        }
+    }
+
+    private void RemoveFromCart(int foodId)
+    {
+        CartService.RemoveFromCart(foodId);
+    }
+
+    private void ClearCart()
+    {
+        CartService.ClearCart();
+    }
+
+    private void CheckOut()
+    {
+        if (!CartService.CartItems.Any())
+        {
+            return;
+        }
+
+        // Initialize order with default values
+        newOrder = new Order
+            {
+                OrderDate = DateTime.Now,
+                Status = "Pending",
+                OrderDetails = new List<OrderDetail>()
+            };
+
+        showCheckoutForm = true;
+    }
+
+    private void CloseCheckoutForm()
+    {
+        showCheckoutForm = false;
+    }
+
+    private async Task PlaceOrder()
+    {
+        using var context = DbFactory.CreateDbContext();
+
+        // Create the order
+        newOrder.OrderDate = DateTime.Now;
+        newOrder.Status = "Pending";
+        newOrder.OrderDetails = new List<OrderDetail>();
+
+        // Add order details from cart items
+        foreach (var item in CartService.CartItems)
+        {
+            var orderDetail = new OrderDetail
+                {
+                    FoodId = item.Food.Id,
+                    Quantity = item.Quantity,
+                    UnitPrice = item.Food.Price
+                };
+
+            newOrder.OrderDetails.Add(orderDetail);
+        }
+
+        // Save to database
+        context.Order.Add(newOrder);
+        await context.SaveChangesAsync();
+
+        // Notify via SignalR about the new order
+        if (hubConnection is not null)
+        {
+            await hubConnection.SendAsync("NewOrderCreated", newOrder.Id);
+        }
+
+        // Clear the cart after successful order
+        CartService.ClearCart();
+
+        // Navigate to confirmation page
+        NavigationManager.NavigateTo($"/orders/confirmation?id={newOrder.Id}");
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        // Unsubscribe from cart changes (in case Dispose wasn't called)
+        CartService.OnCartChanged -= StateHasChanged;
+
+        if (hubConnection is not null)
+        {
+            await hubConnection.DisposeAsync();
+        }
+    }
+}

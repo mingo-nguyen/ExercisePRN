@@ -1,0 +1,104 @@
+﻿@page "/restaurants/edit"
+@using Microsoft.EntityFrameworkCore
+@using FoodShopBlazor.Models
+@inject IDbContextFactory<FoodShopBlazor.Data.FoodShopBlazorContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>Restaurant</h2>
+<hr />
+@if (Restaurant is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="Restaurant" OnValidSubmit="UpdateRestaurant" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary role="alert"/>
+                <input type="hidden" name="Restaurant.Id" value="@Restaurant.Id" />
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name:</label>
+                    <InputText id="name" @bind-Value="Restaurant.Name" class="form-control" />
+                    <ValidationMessage For="() => Restaurant.Name" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address:</label>
+                    <InputText id="address" @bind-Value="Restaurant.Address" class="form-control" />
+                    <ValidationMessage For="() => Restaurant.Address" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone:</label>
+                    <InputText id="phone" @bind-Value="Restaurant.Phone" class="form-control" />
+                    <ValidationMessage For="() => Restaurant.Phone" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description:</label>
+                    <InputText id="description" @bind-Value="Restaurant.Description" class="form-control" />
+                    <ValidationMessage For="() => Restaurant.Description" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/restaurants">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int Id { get; set; }
+
+    [SupplyParameterFromForm]
+    private Restaurant? Restaurant { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        Restaurant ??= await context.Restaurant.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (Restaurant is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdateRestaurant()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(Restaurant!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!RestaurantExists(Restaurant!.Id))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/restaurants");
+    }
+
+    private bool RestaurantExists(int id)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.Restaurant.Any(e => e.Id == id);
+    }
+}

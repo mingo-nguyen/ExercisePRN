@@ -1,0 +1,174 @@
+﻿@page "/orders/confirmation"
+@using Microsoft.EntityFrameworkCore
+@using FoodShopBlazor.Models
+@using Microsoft.AspNetCore.SignalR.Client
+@inject IDbContextFactory<FoodShopBlazor.Data.FoodShopBlazorContext> DbFactory
+@inject NavigationManager NavigationManager
+@implements IAsyncDisposable
+
+<PageTitle>Order Confirmation</PageTitle>
+
+<div class="container mt-4">
+    @if (order == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <div class="card border-success mb-3">
+            <div class="card-header bg-success text-white">
+                <h2>Order Confirmed!</h2>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">Thank you for your order, @order.CustomerName!</h4>
+                <p class="card-text">Your order has been received and is being processed.</p>
+
+                <div class="alert alert-info">
+                    <strong>Order ID:</strong> #@order.Id<br />
+                    <strong>Order Date:</strong> @order.OrderDate.ToString("MMM dd, yyyy hh:mm tt")<br />
+                    <strong>Status:</strong> <span id="status-badge" class="badge @GetStatusBadgeClass()">@order.Status</span>
+                </div>
+
+                <h5>Order Details:</h5>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in order.OrderDetails)
+                        {
+                            <tr>
+                                <td>@(foodNames.ContainsKey(item.FoodId) ? foodNames[item.FoodId] : $"Item #{item.FoodId}")</td>
+                                <td>@item.Quantity</td>
+                                <td>$@item.UnitPrice.ToString("0.00")</td>
+                                <td>$@((item.Quantity * item.UnitPrice).ToString("0.00"))</td>
+                            </tr>
+                        }
+                        <tr>
+                            <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                            <td>$@order.OrderDetails.Sum(od => od.Quantity * od.UnitPrice).ToString("0.00")</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h5>Delivery Information:</h5>
+                <p>
+                    <strong>Address:</strong> @order.DeliveryAddress<br />
+                    <strong>Phone:</strong> @order.Phone
+                </p>
+
+                <div id="status-updates" class="mt-4">
+                    <h5>Real-time Status Updates:</h5>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated"
+                             role="progressbar"
+                             style="width: @GetProgressPercentage()%"
+                             aria-valuenow="@GetProgressPercentage()"
+                             aria-valuemin="0"
+                             aria-valuemax="100">
+                            @order.Status
+                        </div>
+                    </div>
+                    <small class="text-muted">Status updates will appear here in real-time</small>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-between">
+                    <a href="/orders" class="btn btn-secondary">Back to Orders</a>
+                    <a href="/restaurants" class="btn btn-primary">Continue Shopping</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public int Id { get; set; }
+
+    private Order? order;
+    private Dictionary<int, string> foodNames = new();
+    private HubConnection? hubConnection;
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        order = await context.Order
+            .Include(o => o.OrderDetails)
+            .FirstOrDefaultAsync(o => o.Id == Id);
+
+        if (order != null)
+        {
+            // Get food names for display
+            var foodIds = order.OrderDetails.Select(od => od.FoodId).ToList();
+            var foods = await context.Food
+                .Where(f => foodIds.Contains(f.Id))
+                .ToListAsync();
+
+            foodNames = foods.ToDictionary(f => f.Id, f => f.Name);
+
+            // Initialize SignalR connection
+            hubConnection = new HubConnectionBuilder()
+                .WithUrl(NavigationManager.ToAbsoluteUri("/orderhub"))
+                .WithAutomaticReconnect()
+                .Build();
+
+            hubConnection.On<int, string>("UpdateOrderStatus", (orderId, status) =>
+            {
+                if (orderId == Id && order != null)
+                {
+                    order.Status = status;
+                    StateHasChanged();
+                }
+            });
+
+            await hubConnection.StartAsync();
+        }
+        else
+        {
+            NavigationManager.NavigateTo("/notfound");
+        }
+    }
+
+    private string GetStatusBadgeClass()
+    {
+        return order?.Status switch
+        {
+            "Pending" => "bg-warning",
+            "Confirmed" => "bg-info",
+            "Preparing" => "bg-primary",
+            "Out for Delivery" => "bg-info",
+            "Delivered" => "bg-success",
+            "Cancelled" => "bg-danger",
+            _ => "bg-secondary"
+        };
+    }
+
+    private int GetProgressPercentage()
+    {
+        return order?.Status switch
+        {
+            "Pending" => 20,
+            "Confirmed" => 40,
+            "Preparing" => 60,
+            "Out for Delivery" => 80,
+            "Delivered" => 100,
+            "Cancelled" => 100,
+            _ => 0
+        };
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.DisposeAsync();
+        }
+    }
+}

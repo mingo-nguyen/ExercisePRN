@@ -1,0 +1,40 @@
+﻿@page "/foods"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using FoodShopBlazor.Models
+@using FoodShopBlazor.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<FoodShopBlazor.Data.FoodShopBlazorContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="foods/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.Food">
+    <PropertyColumn Property="food => food.Name" />
+    <PropertyColumn Property="food => food.Price" />
+    <PropertyColumn Property="food => food.Description" />
+    <PropertyColumn Property="food => food.ImageUrl" />
+    <PropertyColumn Property="food => food.RestaurantId" />
+
+    <TemplateColumn Context="food">
+        <a href="@($"foods/edit?id={food.Id}")">Edit</a> |
+        <a href="@($"foods/details?id={food.Id}")">Details</a> |
+        <a href="@($"foods/delete?id={food.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private FoodShopBlazorContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

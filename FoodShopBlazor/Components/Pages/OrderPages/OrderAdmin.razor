@@ -1,0 +1,276 @@
+﻿@page "/admin/orders"
+@using Microsoft.EntityFrameworkCore
+@using FoodShopBlazor.Models
+@using Microsoft.AspNetCore.SignalR.Client
+@inject IDbContextFactory<FoodShopBlazor.Data.FoodShopBlazorContext> DbFactory
+@inject NavigationManager NavigationManager
+@implements IAsyncDisposable
+
+<PageTitle>Order Management</PageTitle>
+
+<h1>Order Management Dashboard</h1>
+
+<div class="row mb-4">
+    <div class="col">
+        <div class="alert alert-info">
+            <i class="bi bi-info-circle me-2"></i> Use this dashboard to manage orders and update their statuses in real-time.
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Order Status Filters</h4>
+            </div>
+            <div class="card-body">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn @(currentFilter == "All" ? "btn-primary" : "btn-outline-primary")"
+                            @onclick='() => FilterOrders("All")'>
+                        All Orders
+                    </button>
+                    <button type="button" class="btn @(currentFilter == "Pending" ? "btn-primary" : "btn-outline-primary")"
+                            @onclick='() => FilterOrders("Pending")'>
+                        Pending
+                    </button>
+                    <button type="button" class="btn @(currentFilter == "Confirmed" ? "btn-primary" : "btn-outline-primary")"
+                            @onclick='() => FilterOrders("Confirmed")'>
+                        Confirmed
+                    </button>
+                    <button type="button" class="btn @(currentFilter == "Preparing" ? "btn-primary" : "btn-outline-primary")"
+                            @onclick='() => FilterOrders("Preparing")'>
+                        Preparing
+                    </button>
+                    <button type="button" class="btn @(currentFilter == "Out for Delivery" ? "btn-primary" : "btn-outline-primary")"
+                            @onclick='() => FilterOrders("Out for Delivery")'>
+                        Out for Delivery
+                    </button>
+                    <button type="button" class="btn @(currentFilter == "Delivered" ? "btn-primary" : "btn-outline-primary")"
+                            @onclick='() => FilterOrders("Delivered")'>
+                        Delivered
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (filteredOrders == null)
+{
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+}
+else if (!filteredOrders.Any())
+{
+    <div class="alert alert-warning">
+        No orders found with the current filter.
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var order in filteredOrders)
+        {
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 @GetCardBorderClass(order.Status)">
+                    <div class="card-header d-flex justify-content-between align-items-center @GetCardHeaderClass(order.Status)">
+                        <h5 class="mb-0">Order #@order.Id</h5>
+                        <span class="badge @GetStatusBadgeClass(order.Status)">@order.Status</span>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Customer:</strong> @order.CustomerName</p>
+                        <p><strong>Date:</strong> @order.OrderDate.ToString("MMM dd, yyyy hh:mm tt")</p>
+                        <p><strong>Address:</strong> @order.DeliveryAddress</p>
+                        <p><strong>Phone:</strong> @order.Phone</p>
+
+                        <h6 class="mt-3">Items:</h6>
+                        <ul class="list-group mb-3">
+                            @foreach (var item in order.OrderDetails)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>
+                                        @(GetFoodName(item.FoodId)) x @item.Quantity
+                                    </span>
+                                    <span class="badge bg-primary rounded-pill">
+                                        $@((item.Quantity * item.UnitPrice).ToString("0.00"))
+                                    </span>
+                                </li>
+                            }
+                            <li class="list-group-item d-flex justify-content-between align-items-center fw-bold">
+                                <span>Total</span>
+                                <span>
+                                    $@(order.OrderDetails.Sum(od => od.Quantity * od.UnitPrice).ToString("0.00"))
+                                </span>
+                            </li>
+                        </ul>
+
+                        <div class="mt-3">
+                            <label class="form-label">Update Status:</label>
+                            <div class="input-group">
+                                <select class="form-select" @bind="@orderStatuses[order.Id]">
+                                    <option value="Pending">Pending</option>
+                                    <option value="Confirmed">Confirmed</option>
+                                    <option value="Preparing">Preparing</option>
+                                    <option value="Out for Delivery">Out for Delivery</option>
+                                    <option value="Delivered">Delivered</option>
+                                    <option value="Cancelled">Cancelled</option>
+                                </select>
+                                <button class="btn btn-outline-primary" type="button"
+                                        @onclick="() => UpdateOrderStatus(order.Id)">
+                                    Update
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="@($"/orders/details?id={order.Id}")" class="btn btn-sm btn-outline-secondary">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private List<Order>? orders;
+    private List<Order>? filteredOrders;
+    private Dictionary<int, string> orderStatuses = new();
+    private Dictionary<int, string> foodNames = new();
+    private HubConnection? hubConnection;
+    private string currentFilter = "All";
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Initialize SignalR connection
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(NavigationManager.ToAbsoluteUri("/orderhub"))
+            .WithAutomaticReconnect()
+            .Build();
+
+        // Listen for new orders
+        hubConnection.On<int>("NewOrderReceived", async (orderId) =>
+        {
+            await LoadOrders();
+            StateHasChanged();
+        });
+
+        await hubConnection.StartAsync();
+        await LoadOrders();
+    }
+
+    private async Task LoadOrders()
+    {
+        using var context = DbFactory.CreateDbContext();
+        orders = await context.Order
+            .Include(o => o.OrderDetails)
+            .OrderByDescending(o => o.OrderDate)
+            .ToListAsync();
+
+        // Load all food names for display
+        var foodIds = orders.SelectMany(o => o.OrderDetails.Select(d => d.FoodId)).Distinct().ToList();
+        if (foodIds.Any())
+        {
+            var foods = await context.Food
+                .Where(f => foodIds.Contains(f.Id))
+                .ToListAsync();
+
+            foodNames = foods.ToDictionary(f => f.Id, f => f.Name);
+        }
+
+        // Initialize status dropdown values
+        foreach (var order in orders)
+        {
+            orderStatuses[order.Id] = order.Status;
+        }
+
+        FilterOrders(currentFilter);
+    }
+
+    private string GetFoodName(int foodId)
+    {
+        return foodNames.ContainsKey(foodId) ? foodNames[foodId] : $"Item #{foodId}";
+    }
+
+    private void FilterOrders(string filter)
+    {
+        currentFilter = filter;
+
+        filteredOrders = filter == "All"
+            ? orders
+            : orders?.Where(o => o.Status == filter).ToList();
+    }
+
+    private string GetStatusBadgeClass(string status)
+    {
+        return status switch
+        {
+            "Pending" => "bg-warning",
+            "Confirmed" => "bg-info",
+            "Preparing" => "bg-primary",
+            "Out for Delivery" => "bg-info",
+            "Delivered" => "bg-success",
+            "Cancelled" => "bg-danger",
+            _ => "bg-secondary"
+        };
+    }
+
+    private string GetCardBorderClass(string status)
+    {
+        return status switch
+        {
+            "Pending" => "border-warning",
+            "Confirmed" => "border-info",
+            "Preparing" => "border-primary",
+            "Out for Delivery" => "border-info",
+            "Delivered" => "border-success",
+            "Cancelled" => "border-danger",
+            _ => "border-secondary"
+        };
+    }
+
+    private string GetCardHeaderClass(string status)
+    {
+        return status switch
+        {
+            "Pending" => "bg-warning bg-opacity-25",
+            "Confirmed" => "bg-info bg-opacity-25",
+            "Preparing" => "bg-primary bg-opacity-25",
+            "Out for Delivery" => "bg-info bg-opacity-25",
+            "Delivered" => "bg-success bg-opacity-25",
+            "Cancelled" => "bg-danger bg-opacity-25",
+            _ => "bg-secondary bg-opacity-25"
+        };
+    }
+
+    private async Task UpdateOrderStatus(int orderId)
+    {
+        var newStatus = orderStatuses[orderId];
+
+        using var context = DbFactory.CreateDbContext();
+        var order = await context.Order.FindAsync(orderId);
+
+        if (order != null)
+        {
+            order.Status = newStatus;
+            await context.SaveChangesAsync();
+
+            // Notify clients via SignalR
+            if (hubConnection != null)
+            {
+                await hubConnection.SendAsync("UpdateOrderStatus", orderId, newStatus);
+            }
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.DisposeAsync();
+        }
+    }
+}

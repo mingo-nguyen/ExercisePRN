@@ -1,0 +1,56 @@
+﻿@page "/orders"
+@inject IHttpClientFactory HttpClientFactory
+@using FoodShopBlazor.Models
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<h3>Orders</h3>
+
+@if (orders == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Customer Name</th>
+                <th>Order Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in orders)
+            {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.CustomerName</td>
+                    <td>@order.OrderDate</td>
+                    <td>@order.Status</td>
+                    <a href="@($"orders/edit?id={order.Id}")">Edit</a> |
+                    <a href="@($"orders/details?id={order.Id}")">Details</a> |
+                    <a href="@($"orders/delete?id={order.Id}")">Delete</a>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<p>
+    <a href="orders/create">Create New</a>
+</p>
+
+
+
+@code {
+    private List<Order> orders;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = HttpClientFactory.CreateClient("FoodShopBlazorAPI");
+        orders = await client.GetFromJsonAsync<List<Order>>("api/orders");
+    }
+}
