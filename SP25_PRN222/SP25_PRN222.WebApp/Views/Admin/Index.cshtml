@@ -1,0 +1,163 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container-fluid py-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="card-title mb-0">Welcome to Admin Dashboard</h4>
+                </div>
+                <div class="card-body">
+                    <p class="lead">
+                        Manage your courses, students, and system settings from this centralized dashboard.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="card-title">Course Management</h5>
+                </div>
+                <div class="card-body">
+                    <p>Add, edit, or remove courses from the system. Manage course capacities and enrollment status.</p>
+                    <div class="d-grid">
+                        <a asp-controller="Course" asp-action="Index" class="btn btn-outline-primary">Manage Courses</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="card-title">Student Management</h5>
+                </div>
+                <div class="card-body">
+                    <p>View and manage student enrollments, check course participation, and review student information.</p>
+                    <div class="d-grid">
+                        <a asp-controller="StudentManagement" asp-action="Index" class="btn btn-outline-primary">Manage Students</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="card-title">System Settings</h5>
+                </div>
+                <div class="card-body">
+                    <p>Configure application settings, manage user accounts, and customize system behavior.</p>
+                    <div class="d-grid">
+                        <a asp-controller="Setting" asp-action="Index" class="btn btn-outline-primary">System Settings</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Recent Enrollments</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Course</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- This would be populated from your model -->
+                                <tr>
+                                    <td>Sample Student</td>
+                                    <td>Introduction to Programming</td>
+                                    <td>@DateTime.Now.AddDays(-2).ToString("yyyy-MM-dd")</td>
+                                    <td><span class="badge bg-success">Active</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Another Student</td>
+                                    <td>Web Development</td>
+                                    <td>@DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd")</td>
+                                    <td><span class="badge bg-success">Active</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a asp-controller="Enrollment" asp-action="Index" class="btn btn-sm btn-primary">View All Enrollments</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Course Statistics</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Course</th>
+                                    <th>Enrolled</th>
+                                    <th>Capacity</th>
+                                    <th>Availability</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- This would be populated from your model -->
+                                <tr>
+                                    <td>Database Systems</td>
+                                    <td>28</td>
+                                    <td>30</td>
+                                    <td>
+                                        <div class="progress" style="height: 20px;">
+                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 93%;" aria-valuenow="93" aria-valuemin="0" aria-valuemax="100">93%</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Mobile Development</td>
+                                    <td>15</td>
+                                    <td>30</td>
+                                    <td>
+                                        <div class="progress" style="height: 20px;">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a asp-controller="Report" asp-action="CourseStatistics" class="btn btn-sm btn-primary">View Detailed Statistics</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Any dashboard-specific JavaScript can go here
+        $(document).ready(function() {
+            console.log("Admin dashboard loaded");
+        });
+    </script>
+}

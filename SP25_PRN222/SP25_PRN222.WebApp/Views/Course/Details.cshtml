@@ -1,0 +1,151 @@
+﻿@model SP25_PRN222.WebApp.Models.CourseModels.CourseDetailsAdminViewModel
+@{
+    ViewData["Title"] = "Course Details";
+}
+
+<div class="container py-4">
+    <div class="mb-3">
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Back to Courses
+        </a>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-5">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Course Information</h5>
+                </div>
+                <div class="card-body">
+                    <h3>@Model.Course.Title</h3>
+                    <h6 class="text-muted">@Model.Course.CourseCode</h6>
+
+                    <hr />
+
+                    <dl class="row">
+                        <dt class="col-sm-4">Category</dt>
+                        <dd class="col-sm-8">@(string.IsNullOrEmpty(Model.Course.Category) ? "Not specified" : Model.Course.Category)</dd>
+
+                        <dt class="col-sm-4">Capacity</dt>
+                        <dd class="col-sm-8">@Model.Course.Capacity</dd>
+
+                        <dt class="col-sm-4">Created</dt>
+                        <dd class="col-sm-8">@Model.Course.CreatedAt.ToString("yyyy-MM-dd")</dd>
+
+                        <dt class="col-sm-4">Active Enrollments</dt>
+                        <dd class="col-sm-8">@Model.ActiveEnrollments</dd>
+
+                        <dt class="col-sm-4">Dropped Enrollments</dt>
+                        <dd class="col-sm-8">@Model.DroppedEnrollments</dd>
+                    </dl>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                        <a asp-action="Edit" asp-route-id="@Model.Course.ID" class="btn btn-primary me-md-2">
+                            <i class="bi bi-pencil"></i> Edit
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@Model.Course.ID" class="btn btn-danger">
+                            <i class="bi bi-trash"></i> Delete
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-7">
+            <div class="card">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Course Enrollments</h5>
+                    <span class="badge bg-light text-dark">
+                        @Model.ActiveEnrollments / @Model.Course.Capacity seats filled
+                    </span>
+                </div>
+                <div class="card-body">
+                    @if (Model.Enrollments != null && Model.Enrollments.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Student</th>
+                                        <th>Email</th>
+                                        <th>Enrollment Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var enrollment in Model.Enrollments)
+                                    {
+                                        <tr>
+                                            <td>@enrollment.User.FullName</td>
+                                            <td>@enrollment.User.Email</td>
+                                            <td>@enrollment.EntrollDate.ToShortDateString()</td>
+                                            <td>
+                                                @if (enrollment.Dropped)
+                                                {
+                                                    <span class="badge bg-danger">Dropped</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-success">Active</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="progress mt-3" style="height: 25px;">
+                            @{
+                                var enrollmentPercentage = Model.Course.Capacity > 0
+                                ? (int)(((float)Model.ActiveEnrollments / Model.Course.Capacity) * 100)
+                                : 100;
+
+                                var progressBarColor = enrollmentPercentage >= 90
+                                ? "bg-danger"
+                                : (enrollmentPercentage >= 60 ? "bg-warning" : "bg-success");
+                            }
+
+                            <div class="progress-bar @progressBarColor" role="progressbar"
+                                 style="width: @enrollmentPercentage%;"
+                                 aria-valuenow="@enrollmentPercentage" aria-valuemin="0" aria-valuemax="100">
+                                @enrollmentPercentage% Full
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info">
+                            <p class="mb-0">No students are currently enrolled in this course.</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Auto dismiss alerts after 5 seconds
+        setTimeout(function() {
+            $('.alert').alert('close');
+        }, 5000);
+    </script>
+}

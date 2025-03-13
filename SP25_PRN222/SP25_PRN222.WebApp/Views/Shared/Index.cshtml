@@ -1,0 +1,89 @@
+﻿@model dynamic
+@{
+    ViewData["Title"] = ViewData["PageTitle"] ?? "Home";
+    var heading = ViewData["Heading"] ?? "Welcome";
+    var description = ViewData["Description"] ?? "This is the default index view that can be used by multiple controllers.";
+}
+
+<div class="container py-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="display-4">@heading</h1>
+                    <p class="lead">@description</p>
+
+                    @if (ViewData["ShowActionButton"] != null && (bool)ViewData["ShowActionButton"])
+                    {
+                        <a href="@ViewData["ActionUrl"]" class="btn btn-primary">
+                            @(ViewData["ActionText"] ?? "Learn More")
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (Model != null)
+    {
+        <div class="row">
+            @if (Model is IEnumerable<object> items)
+            {
+                @foreach (var item in items)
+                {
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            @if (item.GetType().GetProperty("ImageUrl")?.GetValue(item) != null)
+                            {
+                                <img src="@item.GetType().GetProperty("ImageUrl").GetValue(item)" class="card-img-top" alt="Item Image">
+                            }
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    @(item.GetType().GetProperty("Title")?.GetValue(item) ?? "Untitled")
+                                </h5>
+                                <p class="card-text">
+                                    @(item.GetType().GetProperty("Description")?.GetValue(item) ?? "No description available.")
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                @if (item.GetType().GetProperty("DetailUrl")?.GetValue(item) != null)
+                                {
+                                    <a href="@item.GetType().GetProperty("DetailUrl").GetValue(item)" class="btn btn-sm btn-outline-primary">
+                                        View Details
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12">
+                    <div class="alert alert-info">
+                        <p>The content for this page couldn't be displayed in the expected format.</p>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-warning">
+                    <p>No items are currently available to display.</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        // Generic page initialization script
+        $(document).ready(function() {
+            console.log("Shared index view loaded");
+        });
+    </script>
+}

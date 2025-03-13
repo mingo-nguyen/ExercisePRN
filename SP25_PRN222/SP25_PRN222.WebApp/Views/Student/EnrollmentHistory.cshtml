@@ -1,0 +1,68 @@
+﻿@model IEnumerable<FUBusiness.Entities.EnrollmentRecords>
+@{
+    ViewData["Title"] = "Enrollment History";
+}
+
+<div class="container py-4">
+    <div class="mb-3">
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">My Enrollment History</h5>
+        </div>
+        <div class="card-body">
+            @if (Model != null && Model.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Course</th>
+                                <th>Course Code</th>
+                                <th>Enrollment Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var enrollment in Model)
+                            {
+                                <tr>
+                                    <td>@enrollment.Course.Title</td>
+                                    <td>@enrollment.Course.CourseCode</td>
+                                    <td>@enrollment.EntrollDate.ToShortDateString()</td>
+                                    <td>
+                                        @if (enrollment.Dropped)
+                                        {
+                                            <span class="badge bg-danger">Dropped</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-success">Active</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a asp-action="CourseDetails" asp-route-id="@enrollment.CourseId"
+                                           class="btn btn-sm btn-outline-primary">
+                                            View Course
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info">
+                    <p class="mb-0">You have not enrolled in any courses yet.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>

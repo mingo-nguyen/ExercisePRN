@@ -1,0 +1,16 @@
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FURepositories\bin\Debug\net8.0\FURepositories.deps.json
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FURepositories\bin\Debug\net8.0\FURepositories.dll
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FURepositories\bin\Debug\net8.0\FURepositories.pdb
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FURepositories\obj\Debug\net8.0\FURepositories.GeneratedMSBuildEditorConfig.editorconfig
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FURepositories\obj\Debug\net8.0\FURepositories.AssemblyInfoInputs.cache
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FURepositories\obj\Debug\net8.0\FURepositories.AssemblyInfo.cs
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FURepositories\obj\Debug\net8.0\FURepositories.csproj.CoreCompileInputs.cache
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FURepositories\obj\Debug\net8.0\FURepositories.sourcelink.json
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FURepositories\obj\Debug\net8.0\FURepositories.dll
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FURepositories\obj\Debug\net8.0\refint\FURepositories.dll
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FURepositories\obj\Debug\net8.0\FURepositories.pdb
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FURepositories\obj\Debug\net8.0\ref\FURepositories.dll
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FURepositories\bin\Debug\net8.0\FUBusiness.dll
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FURepositories\bin\Debug\net8.0\FUBusiness.pdb
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FURepositories\obj\Debug\net8.0\FURepositories.csproj.AssemblyReference.cache
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FURepositories\obj\Debug\net8.0\FUReposi.9B8EA18B.Up2Date

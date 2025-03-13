@@ -1,0 +1,15 @@
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FUBusiness\bin\Debug\net8.0\FUBusiness.deps.json
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FUBusiness\bin\Debug\net8.0\FUBusiness.runtimeconfig.json
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FUBusiness\bin\Debug\net8.0\FUBusiness.dll
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FUBusiness\bin\Debug\net8.0\FUBusiness.pdb
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FUBusiness\obj\Debug\net8.0\FUBusiness.csproj.AssemblyReference.cache
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FUBusiness\obj\Debug\net8.0\FUBusiness.GeneratedMSBuildEditorConfig.editorconfig
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FUBusiness\obj\Debug\net8.0\FUBusiness.AssemblyInfoInputs.cache
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FUBusiness\obj\Debug\net8.0\FUBusiness.AssemblyInfo.cs
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FUBusiness\obj\Debug\net8.0\FUBusiness.csproj.CoreCompileInputs.cache
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FUBusiness\obj\Debug\net8.0\FUBusiness.sourcelink.json
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FUBusiness\obj\Debug\net8.0\FUBusiness.dll
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FUBusiness\obj\Debug\net8.0\refint\FUBusiness.dll
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FUBusiness\obj\Debug\net8.0\FUBusiness.pdb
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FUBusiness\obj\Debug\net8.0\FUBusiness.genruntimeconfig.cache
+D:\Coding\C#\ExercisePRN\SP25_PRN222\FUBusiness\obj\Debug\net8.0\ref\FUBusiness.dll

@@ -1,0 +1,107 @@
+﻿@model SP25_PRN222.WebApp.Models.CourseModels.CourseDetailsViewModel
+@{
+    ViewData["Title"] = "Course Details";
+}
+
+<div class="container py-4">
+    <div class="mb-3">
+        <a asp-action="Courses" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Back to Courses
+        </a>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">@Model.Course.Title</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <dl>
+                                <dt>Course Code</dt>
+                                <dd>@Model.Course.CourseCode</dd>
+
+                                <dt>Category</dt>
+                                <dd>@(string.IsNullOrEmpty(Model.Course.Category) ? "Not specified" : Model.Course.Category)</dd>
+                            </dl>
+                        </div>
+                        <div class="col-md-6">
+                            <dl>
+                                <dt>Available Seats</dt>
+                                <dd>@Model.Course.Capacity</dd>
+
+                                <dt>Added On</dt>
+                                <dd>@Model.Course.CreatedAt.ToShortDateString()</dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                        @if (!Model.IsEnrolled && Model.Course.Capacity > 0)
+                        {
+                            <form asp-action="Enroll" method="post">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="courseId" value="@Model.Course.ID" />
+                                <button type="submit" class="btn btn-success">
+                                    <i class="bi bi-check-circle"></i> Enroll in this Course
+                                </button>
+                            </form>
+                        }
+                        else if (Model.IsEnrolled)
+                        {
+                            <div class="alert alert-info">
+                                <i class="bi bi-info-circle"></i> You are currently enrolled in this course.
+                            </div>
+                            <form asp-action="DropCourse" method="post"
+                                  onsubmit="return confirm('Are you sure you want to drop this course?');">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@Model.EnrollmentId" />
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="bi bi-x-circle"></i> Drop Course
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <div class="alert alert-warning">
+                                <i class="bi bi-exclamation-triangle"></i> This course is currently full.
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Course Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <a asp-action="Index" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">My Dashboard</h6>
+                                <i class="bi bi-speedometer2"></i>
+                            </div>
+                        </a>
+                        <a asp-action="Courses" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Browse More Courses</h6>
+                                <i class="bi bi-search"></i>
+                            </div>
+                        </a>
+                        <a asp-action="EnrollmentHistory" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">My Enrollment History</h6>
+                                <i class="bi bi-clock-history"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

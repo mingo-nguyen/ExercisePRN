@@ -1,0 +1,344 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\SP25_PRN222.WebApp\\SP25_PRN222.WebApp.csproj": {}
+  },
+  "projects": {
+    "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\FUBusiness\\FUBusiness.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\FUBusiness\\FUBusiness.csproj",
+        "projectName": "FUBusiness",
+        "projectPath": "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\FUBusiness\\FUBusiness.csproj",
+        "packagesPath": "C:\\Users\\mingo\\.nuget\\packages\\",
+        "outputPath": "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\FUBusiness\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\mingo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.14, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200-preview.0.24575.35/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\FUDataAccess\\FUDataAccess.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\FUDataAccess\\FUDataAccess.csproj",
+        "projectName": "FUDataAccess",
+        "projectPath": "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\FUDataAccess\\FUDataAccess.csproj",
+        "packagesPath": "C:\\Users\\mingo\\.nuget\\packages\\",
+        "outputPath": "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\FUDataAccess\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\mingo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\FUBusiness\\FUBusiness.csproj": {
+                "projectPath": "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\FUBusiness\\FUBusiness.csproj"
+              },
+              "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\FURepositories\\FURepositories.csproj": {
+                "projectPath": "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\FURepositories\\FURepositories.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.14, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200-preview.0.24575.35/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\FURepositories\\FURepositories.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\FURepositories\\FURepositories.csproj",
+        "projectName": "FURepositories",
+        "projectPath": "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\FURepositories\\FURepositories.csproj",
+        "packagesPath": "C:\\Users\\mingo\\.nuget\\packages\\",
+        "outputPath": "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\FURepositories\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\mingo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\FUBusiness\\FUBusiness.csproj": {
+                "projectPath": "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\FUBusiness\\FUBusiness.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.14, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200-preview.0.24575.35/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\SP25_PRN222.WebApp\\SP25_PRN222.WebApp.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\SP25_PRN222.WebApp\\SP25_PRN222.WebApp.csproj",
+        "projectName": "SP25_PRN222.WebApp",
+        "projectPath": "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\SP25_PRN222.WebApp\\SP25_PRN222.WebApp.csproj",
+        "packagesPath": "C:\\Users\\mingo\\.nuget\\packages\\",
+        "outputPath": "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\SP25_PRN222.WebApp\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\mingo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\FUBusiness\\FUBusiness.csproj": {
+                "projectPath": "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\FUBusiness\\FUBusiness.csproj"
+              },
+              "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\FUDataAccess\\FUDataAccess.csproj": {
+                "projectPath": "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\FUDataAccess\\FUDataAccess.csproj"
+              },
+              "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\FURepositories\\FURepositories.csproj": {
+                "projectPath": "D:\\Coding\\C#\\ExercisePRN\\SP25_PRN222\\FURepositories\\FURepositories.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.14, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[8.0.7, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200-preview.0.24575.35/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

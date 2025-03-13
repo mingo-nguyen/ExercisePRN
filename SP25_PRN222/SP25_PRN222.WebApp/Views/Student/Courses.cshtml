@@ -1,0 +1,114 @@
+﻿@model List<SP25_PRN222.WebApp.Models.CourseModels.CourseEnrollmentViewModel>
+@{
+    ViewData["Title"] = "Course Catalog";
+}
+
+<div class="container py-4">
+    <div class="mb-3">
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h5 class="mb-0">Available Courses</h5>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" id="searchInput" class="form-control"
+                           placeholder="Search by title or category...">
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            @if (Model != null && Model.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover" id="coursesTable">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Course Code</th>
+                                <th>Category</th>
+                                <th>Available Seats</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Course.Title</td>
+                                    <td>@item.Course.CourseCode</td>
+                                    <td>@item.Course.Category</td>
+                                    <td>@item.Course.Capacity</td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <a asp-action="CourseDetails" asp-route-id="@item.Course.ID"
+                                               class="btn btn-sm btn-outline-primary">
+                                                Details
+                                            </a>
+                                            @if (!item.IsEnrolled && item.HasAvailableCapacity)
+                                            {
+                                                <form asp-action="Enroll" method="post">
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="hidden" name="courseId" value="@item.Course.ID" />
+                                                    <button type="submit" class="btn btn-sm btn-success">
+                                                        Enroll
+                                                    </button>
+                                                </form>
+                                            }
+                                            else if (item.IsEnrolled)
+                                            {
+                                                <span class="badge bg-info">Enrolled</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-secondary">Full</span>
+                                            }
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info">
+                    <p class="mb-0">No courses are currently available.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Search functionality
+            $("#searchInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#coursesTable tbody tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+
+            // Auto dismiss alerts after 5 seconds
+            setTimeout(function() {
+                $('.alert').alert('close');
+            }, 5000);
+        });
+    </script>
+}

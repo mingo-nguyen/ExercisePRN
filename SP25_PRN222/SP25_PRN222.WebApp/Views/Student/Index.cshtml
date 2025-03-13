@@ -1,0 +1,139 @@
+﻿@model IEnumerable<FUBusiness.Entities.EnrollmentRecords>
+@{
+    ViewData["Title"] = "Student Dashboard";
+}
+
+<div class="container py-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h1 class="display-5">Welcome, @Context.Session.GetString("UserName")</h1>
+                    <p class="lead">Your student dashboard for managing your course enrollments</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">My Courses</h5>
+                    <a asp-action="Courses" class="btn btn-primary btn-sm">
+                        <i class="bi bi-plus"></i> Enroll in Courses
+                    </a>
+                </div>
+                <div class="card-body">
+                    @if (Model != null && Model.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Course</th>
+                                        <th>Course Code</th>
+                                        <th>Category</th>
+                                        <th>Enrollment Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.Course.Title</td>
+                                            <td>@item.Course.CourseCode</td>
+                                            <td>@item.Course.Category</td>
+                                            <td>@item.EntrollDate.ToShortDateString()</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <a asp-action="CourseDetails" asp-route-id="@item.CourseId"
+                                                       class="btn btn-sm btn-outline-primary">
+                                                        Details
+                                                    </a>
+                                                    <form asp-action="DropCourse" method="post"
+                                                          onsubmit="return confirm('Are you sure you want to drop this course?');">
+                                                        <input type="hidden" name="id" value="@item.Id" />
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                            Drop
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info">
+                            <p class="mb-0">You are not currently enrolled in any courses.</p>
+                            <p class="mb-0">Click "Enroll in Courses" to browse available courses.</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Quick Links</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <a asp-action="Profile" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">My Profile</h5>
+                                <i class="bi bi-person"></i>
+                            </div>
+                            <p class="mb-1">View and manage your profile information</p>
+                        </a>
+                        <a asp-action="Courses" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">Course Catalog</h5>
+                                <i class="bi bi-book"></i>
+                            </div>
+                            <p class="mb-1">Browse all available courses</p>
+                        </a>
+                        <a asp-action="EnrollmentHistory" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">Enrollment History</h5>
+                                <i class="bi bi-clock-history"></i>
+                            </div>
+                            <p class="mb-1">View your complete enrollment history</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Auto dismiss alerts after 5 seconds
+        setTimeout(function() {
+            $('.alert').alert('close');
+        }, 5000);
+    </script>
+}
