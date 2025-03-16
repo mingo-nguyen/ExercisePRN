@@ -1,0 +1,12 @@
+D:\Coding\C#\ExercisePRN\HoaiNX_SE17D09_A02\HoaiNXRazorPages.Domain\bin\Debug\net8.0\HoaiNXRazorPages.Domain.deps.json
+D:\Coding\C#\ExercisePRN\HoaiNX_SE17D09_A02\HoaiNXRazorPages.Domain\bin\Debug\net8.0\HoaiNXRazorPages.Domain.dll
+D:\Coding\C#\ExercisePRN\HoaiNX_SE17D09_A02\HoaiNXRazorPages.Domain\bin\Debug\net8.0\HoaiNXRazorPages.Domain.pdb
+D:\Coding\C#\ExercisePRN\HoaiNX_SE17D09_A02\HoaiNXRazorPages.Domain\obj\Debug\net8.0\HoaiNXRazorPages.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Coding\C#\ExercisePRN\HoaiNX_SE17D09_A02\HoaiNXRazorPages.Domain\obj\Debug\net8.0\HoaiNXRazorPages.Domain.AssemblyInfoInputs.cache
+D:\Coding\C#\ExercisePRN\HoaiNX_SE17D09_A02\HoaiNXRazorPages.Domain\obj\Debug\net8.0\HoaiNXRazorPages.Domain.AssemblyInfo.cs
+D:\Coding\C#\ExercisePRN\HoaiNX_SE17D09_A02\HoaiNXRazorPages.Domain\obj\Debug\net8.0\HoaiNXRazorPages.Domain.csproj.CoreCompileInputs.cache
+D:\Coding\C#\ExercisePRN\HoaiNX_SE17D09_A02\HoaiNXRazorPages.Domain\obj\Debug\net8.0\HoaiNXRazorPages.Domain.sourcelink.json
+D:\Coding\C#\ExercisePRN\HoaiNX_SE17D09_A02\HoaiNXRazorPages.Domain\obj\Debug\net8.0\HoaiNXRazorPages.Domain.dll
+D:\Coding\C#\ExercisePRN\HoaiNX_SE17D09_A02\HoaiNXRazorPages.Domain\obj\Debug\net8.0\refint\HoaiNXRazorPages.Domain.dll
+D:\Coding\C#\ExercisePRN\HoaiNX_SE17D09_A02\HoaiNXRazorPages.Domain\obj\Debug\net8.0\HoaiNXRazorPages.Domain.pdb
+D:\Coding\C#\ExercisePRN\HoaiNX_SE17D09_A02\HoaiNXRazorPages.Domain\obj\Debug\net8.0\ref\HoaiNXRazorPages.Domain.dll

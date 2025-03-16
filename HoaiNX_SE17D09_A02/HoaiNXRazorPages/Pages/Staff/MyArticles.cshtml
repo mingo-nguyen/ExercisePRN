@@ -1,0 +1,386 @@
+﻿@page
+@model HoaiNXRazorPages.Pages.Staff.MyArticlesModel
+@{
+    ViewData["Title"] = "My Articles";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>My Articles</h2>
+    <a href="/Staff/NewsArticles" class="btn btn-outline-primary">
+        <i class="fas fa-list"></i> All Articles
+    </a>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="card mb-4">
+    <div class="card-header bg-light">
+        <form method="get" class="row g-3 align-items-end">
+            <div class="col-md-3">
+                <label for="statusFilter" class="form-label">Status</label>
+                <select id="statusFilter" name="status" class="form-select" asp-for="StatusFilter">
+                    <option value="">All</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="sortBy" class="form-label">Sort By</label>
+                <select id="sortBy" name="sortBy" class="form-select" asp-for="SortBy">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="title">Title</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search articles..." name="search" value="@Model.SearchTerm">
+                    <button class="btn btn-outline-secondary" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Filter</button>
+            </div>
+        </form>
+    </div>
+    <div class="card-body">
+        @if (!Model.MyNewsArticles.Any())
+        {
+            <div class="text-center py-5">
+                <i class="fas fa-newspaper text-muted" style="font-size: 3rem;"></i>
+                <p class="lead text-muted mt-3">You haven't created any articles yet.</p>
+                <a href="#" class="btn btn-primary mt-3" id="createNewsBtn">Create Your First Article</a>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Created Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var article in Model.MyNewsArticles)
+                        {
+                            <tr data-id="@article.NewsArticleId">
+                                <td>
+                                    @article.NewsTitle
+                                    <span class="d-block small text-muted">@article.Headline</span>
+                                </td>
+                                <td>@article.Category?.CategoryName</td>
+                                <td>@article.CreatedDate?.ToString("MMM dd, yyyy")</td>
+                                <td><span class="badge @(article.NewsStatus ? "bg-success" : "bg-secondary")">@(article.NewsStatus ? "active" : "inactive")</span></td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-primary edit-news" data-id="@article.NewsArticleId">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </button>
+                                        <a href="/News/Details/@article.NewsArticleId" target="_blank" class="btn btn-sm btn-info">
+                                            <i class="fas fa-eye"></i> View
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <div>
+                    <p class="text-muted mb-0">Showing @Model.MyNewsArticles.Count() article(s)</p>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-primary" id="createNewsBtn">
+                        <i class="fas fa-plus"></i> Create New Article
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- News Article Modal (same as in NewsArticles.cshtml) -->
+<div class="modal fade" id="newsArticleModal" tabindex="-1" aria-labelledby="newsArticleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="newsArticleModalLabel"><i class="fas fa-newspaper"></i> <span id="modalTitle">Create News Article</span></h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="newsArticleAlerts">
+                    <!-- Alerts will appear here -->
+                </div>
+                <form id="newsArticleForm">
+                    <div id="formContent">
+                        <div class="text-center p-4">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-2">Loading form...</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="saveArticleBtn">
+                    <i class="fas fa-save"></i> Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <!-- TinyMCE rich text editor -->
+    <script src="https://cdn.tiny.cloud/1/fp68gne0fm77dk16z52wlefky31rcuton3jg0iwlrgmvhv76/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+        let isEdit = false;
+        let currentArticleId = null;
+
+        $(document).ready(function() {
+            // Create news button click
+            $('#createNewsBtn').click(function() {
+                isEdit = false;
+                currentArticleId = null;
+                $('#modalTitle').text('Create News Article');
+                loadNewsForm();
+                $('#newsArticleModal').modal('show');
+            });
+
+            // Edit news button click
+            $(document).on('click', '.edit-news', function() {
+                isEdit = true;
+                currentArticleId = $(this).data('id');
+                $('#modalTitle').text('Edit News Article');
+                loadNewsForm(currentArticleId);
+                $('#newsArticleModal').modal('show');
+            });
+
+            // Save button click
+            $('#saveArticleBtn').click(function() {
+                saveNewsArticle();
+            });
+
+            // When modal is hidden, destroy TinyMCE
+            $('#newsArticleModal').on('hidden.bs.modal', function() {
+                if (tinymce.get('editor')) {
+                    tinymce.get('editor').remove();
+                }
+            });
+        });
+
+        function loadNewsForm(newsId = null) {
+            // Clear previous alerts
+            $('#newsArticleAlerts').empty();
+
+            let url = '/Staff/NewsArticles?handler=NewsArticleForm';
+            if (newsId) {
+                url += '&newsId=' + newsId;
+            }
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                headers: {
+                    "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+                },
+                success: function(data) {
+                    $('#formContent').html(data);
+                    initializeTinyMCE();
+                    setupTagsInput();
+                },
+                error: function() {
+                    showNewsAlert('danger', 'Failed to load form. Please try again.');
+                }
+            });
+        }
+
+        function saveNewsArticle() {
+            // Make sure TinyMCE content is synced
+            if (tinymce.get('editor')) {
+                tinymce.get('editor').save();
+            }
+
+            // Validate form
+            if (!validateForm()) {
+                return;
+            }
+
+            // Disable button and show loading
+            toggleSaveButton(true);
+
+            // Get form data
+            const formData = $('#newsArticleForm').serialize();
+
+            // Send AJAX request
+            $.ajax({
+                url: isEdit ? '/Staff/NewsArticles?handler=UpdateNewsArticle' : '/Staff/NewsArticles?handler=CreateNewsArticle',
+                type: 'POST',
+                data: formData,
+                headers: {
+                    "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+                },
+                success: function(response) {
+                    if (response.success) {
+                        // Show success message
+                        showNewsAlert('success', response.message);
+
+                        // Close modal after a short delay
+                        setTimeout(function() {
+                            $('#newsArticleModal').modal('hide');
+                            window.location.reload();
+                        }, 1500);
+                    } else {
+                        // Show error message
+                        showNewsAlert('danger', response.message);
+                        toggleSaveButton(false);
+                    }
+                },
+                error: function() {
+                    showNewsAlert('danger', 'An error occurred while saving the article.');
+                    toggleSaveButton(false);
+                }
+            });
+        }
+
+        function toggleSaveButton(disabled) {
+            if (disabled) {
+                $('#saveArticleBtn').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...');
+            } else {
+                $('#saveArticleBtn').html('<i class="fas fa-save"></i> Save');
+            }
+
+            $('#saveArticleBtn').prop('disabled', disabled);
+        }
+
+        function validateForm() {
+            // Basic validation
+            const title = $('#NewsArticle_NewsTitle').val();
+            const headline = $('#NewsArticle_Headline').val();
+            const content = tinymce.get('editor').getContent();
+            const categoryId = $('#NewsArticle_CategoryId').val();
+
+            let isValid = true;
+            let errorMessage = '';
+
+            if (!title) {
+                errorMessage += 'Title is required.<br>';
+                isValid = false;
+            }
+
+            if (!headline) {
+                errorMessage += 'Headline is required.<br>';
+                isValid = false;
+            }
+
+            if (!content) {
+                errorMessage += 'Content is required.<br>';
+                isValid = false;
+            }
+
+            if (!categoryId) {
+                errorMessage += 'Category is required.<br>';
+                isValid = false;
+            }
+
+            if (!isValid) {
+                showNewsAlert('danger', errorMessage);
+            }
+
+            return isValid;
+        }
+
+        function initializeTinyMCE() {
+            tinymce.init({
+                selector: '#editor',
+                plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+                height: 300,
+                setup: function(editor) {
+                    editor.on('change', function() {
+                        editor.save(); // Sync TinyMCE content with textarea
+                    });
+                }
+            });
+        }
+
+        function setupTagsInput() {
+            // Common tags for suggestions
+            const commonTags = ['news', 'politics', 'technology', 'health', 'science', 'business', 'sports',
+                             'entertainment', 'education', 'environment', 'travel'];
+
+            const tagSuggestions = $('#tag-suggestions');
+            tagSuggestions.empty();
+
+            // Show suggestions
+            commonTags.forEach(tag => {
+                const badge = $('<span class="badge bg-light text-dark border m-1"></span>').text(tag);
+                badge.css('cursor', 'pointer');
+                badge.click(function() {
+                    const tagInput = $('#tags-input');
+                    const currentTags = tagInput.val().split(',').map(t => t.trim()).filter(t => t);
+
+                    if (!currentTags.includes(tag)) {
+                        const newValue = currentTags.length > 0 ?
+                            currentTags.join(', ') + ', ' + tag :
+                            tag;
+                        tagInput.val(newValue);
+                    }
+                });
+
+                tagSuggestions.append(badge);
+            });
+
+            // Handle commas in tag input
+            $('#tags-input').on('keydown', function(e) {
+                if (e.key === ',') {
+                    e.preventDefault();
+                    const value = $(this).val().trim();
+                    if (value && !value.endsWith(',')) {
+                        $(this).val(value + ', ');
+                    }
+                }
+            });
+        }
+
+        function showNewsAlert(type, message) {
+            const alertHtml = `
+                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            `;
+            $('#newsArticleAlerts').html(alertHtml);
+
+            // Scroll to the top of the modal
+            $('.modal-body').scrollTop(0);
+        }
+    </script>
+}

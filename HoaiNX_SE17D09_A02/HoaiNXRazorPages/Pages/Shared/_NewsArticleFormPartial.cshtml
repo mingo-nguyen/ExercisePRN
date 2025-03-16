@@ -1,0 +1,71 @@
+﻿@model HoaiNXRazorPages.Pages.Staff.NewsArticleFormModel
+
+<input type="hidden" asp-for="NewsArticle.NewsArticleId" id="newsArticleId"
+       value="@(string.IsNullOrEmpty(Model.NewsArticle?.NewsArticleId) ? DateTime.Now.ToString("yyyyMMddHHmmss") : Model.NewsArticle.NewsArticleId)" />
+
+@if (Model.IsEdit)
+{
+    <input type="hidden" asp-for="NewsArticle.CreatedDate" />
+    <input type="hidden" asp-for="NewsArticle.CreatedById" />
+}
+
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <label asp-for="NewsArticle.NewsTitle" class="form-label">Title <span class="text-danger">*</span></label>
+        <input asp-for="NewsArticle.NewsTitle" class="form-control" required />
+        <span asp-validation-for="NewsArticle.NewsTitle" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6 mb-3">
+        <label asp-for="NewsArticle.Headline" class="form-label">Headline <span class="text-danger">*</span></label>
+        <input asp-for="NewsArticle.Headline" class="form-control" required />
+        <span asp-validation-for="NewsArticle.Headline" class="text-danger"></span>
+    </div>
+</div>
+
+<div class="mb-3">
+    <label asp-for="NewsArticle.NewsContent" class="form-label">Content <span class="text-danger">*</span></label>
+    <textarea asp-for="NewsArticle.NewsContent" class="form-control" id="editor" rows="10" required></textarea>
+    <span asp-validation-for="NewsArticle.NewsContent" class="text-danger"></span>
+    <small class="text-muted">Enter the full content of your article here.</small>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <label asp-for="NewsArticle.CategoryId" class="form-label">Category <span class="text-danger">*</span></label>
+        <select asp-for="NewsArticle.CategoryId" class="form-select" asp-items="@Model.CategorySelectList" required>
+            <option value="">-- Select Category --</option>
+        </select>
+        <span asp-validation-for="NewsArticle.CategoryId" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6 mb-3">
+        <label asp-for="NewsArticle.NewsSource" class="form-label">Source</label>
+        <input asp-for="NewsArticle.NewsSource" class="form-control" placeholder="e.g., Reuters, AP, Original Content" />
+        <span asp-validation-for="NewsArticle.NewsSource" class="text-danger"></span>
+    </div>
+</div>
+
+<div class="mb-3">
+    <label asp-for="TagsInput" class="form-label">Tags</label>
+    <input asp-for="TagsInput" id="tags-input" class="form-control" placeholder="Enter tags separated by commas" />
+    <div id="tag-suggestions" class="mt-2 d-flex flex-wrap gap-2"></div>
+    <small class="text-muted">Enter tags separated by commas (e.g., politics, technology, sports)</small>
+</div>
+
+<div class="form-check mb-3">
+    <input asp-for="IsPublished" class="form-check-input" type="checkbox" id="IsPublished" />
+    <label asp-for="IsPublished" class="form-check-label">Active</label>
+    <small class="d-block text-muted">If checked, the article will be visible to users. If unchecked, it will be saved as inactive.</small>
+</div>
+
+
+@if (Model.IsEdit && Model.NewsArticle.ModifiedDate.HasValue)
+{
+    <div class="mb-3">
+        <p class="text-muted">
+            <small>Last updated: @Model.NewsArticle.ModifiedDate?.ToString("MMM dd, yyyy HH:mm") </small>
+        </p>
+    </div>
+}
+

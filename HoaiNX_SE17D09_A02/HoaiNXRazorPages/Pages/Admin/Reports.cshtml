@@ -1,0 +1,146 @@
+﻿@page
+@model HoaiNXRazorPages.Pages.Admin.ReportsModel
+@{
+    ViewData["Title"] = "Reports & Statistics";
+}
+
+<h2>News Article Statistics</h2>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-filter"></i> Filter Reports
+    </div>
+    <div class="card-body">
+        <form method="get">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label asp-for="StartDate" class="form-label">Start Date</label>
+                        <input type="date" asp-for="StartDate" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label asp-for="EndDate" class="form-label">End Date</label>
+                        <input type="date" asp-for="EndDate" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label class="form-label">&nbsp;</label>
+                        <button type="submit" class="form-control btn btn-primary">Generate Report</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@if (Model.ShowReport)
+{
+    <div class="card">
+        <div class="card-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <i class="fas fa-table"></i> News Articles Report
+                    <span class="text-muted">(@Convert.ToDateTime(Model.StartDate).ToShortDateString() - @Convert.ToDateTime(Model.EndDate).ToShortDateString())</span>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-sm btn-success" onclick="exportTableToExcel('reportTable', 'news_report')">
+                        <i class="fas fa-file-excel"></i> Export to Excel
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="reportTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>News ID</th>
+                            <th>Title</th>
+                            <th>Created Date</th>
+                            <th>Author</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var article in Model.NewsArticles)
+                        {
+                            <tr>
+                                <td>@article.NewsArticleId</td>
+                                <td>@article.NewsTitle</td>
+                                <td>@article.CreatedDate?.ToShortDateString()</td>
+                                <td>@article.CreatedBy?.AccountName</td>
+                                <td>@article.Category?.CategoryName</td>
+                                <td>@(article.NewsStatus == true ? "Published" : "Draft")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-4">
+                <h5>Summary</h5>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body">
+                                <h5>Total Articles</h5>
+                                <h2>@Model.NewsArticles.Count()</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-success text-white">
+                            <div class="card-body">
+                                <h5>Published</h5>
+                                <h2>@Model.NewsArticles.Count(a => a.NewsStatus == true)</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-warning text-white">
+                            <div class="card-body">
+                                <h5>Draft</h5>
+                                <h2>@Model.NewsArticles.Count(a => a.NewsStatus != true)</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        function exportTableToExcel(tableID, filename = '') {
+            var downloadLink;
+            var dataType = 'application/vnd.ms-excel';
+            var tableSelect = document.getElementById(tableID);
+            var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+
+            // Create download link element
+            filename = filename ? filename + '.xls' : 'excel_data.xls';
+            downloadLink = document.createElement("a");
+
+            document.body.appendChild(downloadLink);
+
+            if (navigator.msSaveOrOpenBlob) {
+                var blob = new Blob(['\ufeff', tableHTML], {
+                    type: dataType
+                });
+                navigator.msSaveOrOpenBlob(blob, filename);
+            } else {
+                // Create a link to the file
+                downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+                downloadLink.download = filename;
+
+                // Click download link
+                downloadLink.click();
+            }
+        }
+    </script>
+}

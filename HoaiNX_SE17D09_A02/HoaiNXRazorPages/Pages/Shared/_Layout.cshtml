@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - HoaiNXRazorPages</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/HoaiNXRazorPages.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-page="/Index">HoaiNXRazorPages</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                        </li>
+                    </ul>
+
+                    <ul class="navbar-nav">
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user-circle me-1"></i>@User.Identity.Name
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#profileModal">
+                                            <i class="fas fa-id-card me-1"></i>My Profile
+                                        </button>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <form class="dropdown-item" asp-page="/Auth/Logout" asp-route-returnUrl="@Url.Page("/Auth/Login")" method="post">
+                                            <button type="submit" class="btn btn-link p-0" style="text-decoration: none;" onclick="confirmLogout(event)">
+                                                <i class="fas fa-sign-out-alt me-1"></i>Logout
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Auth/Login">
+                                    <i class="fas fa-sign-in-alt me-1"></i>Login
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - HoaiNXRazorPages - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <!-- Profile Modal -->
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="profileModalLabel">My Profile</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Profile view/edit form will be loaded here via Ajax -->
+                        <div id="profileContent">
+                            <div class="text-center p-4">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <p class="mt-2">Loading profile...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <script>
+            $(document).ready(function () {
+                // Load profile data when modal is opened
+                $('#profileModal').on('shown.bs.modal', function () {
+                    loadProfileData();
+                });
+            });
+
+            function loadProfileData() {
+                $.ajax({
+                    url: '/ProfileHandler?handler=ProfilePartial',
+                    type: 'GET',
+                    headers: {
+                        "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function (data) {
+                        $('#profileContent').html(data);
+                        setupProfileFormHandlers();
+                    },
+                    error: function () {
+                        $('#profileContent').html('<div class="alert alert-danger">Failed to load profile data. Please try again later.</div>');
+                    }
+                });
+            }
+
+            function setupProfileFormHandlers() {
+                // Toggle between view and edit modes
+                $('#editProfileBtn').click(function() {
+                    $('#profileViewMode').hide();
+                    $('#profileEditMode').show();
+                });
+
+                $('#cancelEditBtn').click(function() {
+                    $('#profileEditMode').hide();
+                    $('#profileViewMode').show();
+                });
+
+                // Handle form submission
+                $('#profileEditForm').submit(function(e) {
+                    e.preventDefault();
+
+                    // Show loading indicator
+                    $('#saveProfileBtn').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...');
+                    $('#saveProfileBtn').prop('disabled', true);
+
+                    $.ajax({
+                        url: '/ProfileHandler?handler=UpdateProfile',
+                        type: 'POST',
+                        headers: {
+                            "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+                        },
+                        data: $(this).serialize(),
+                        success: function(response) {
+                            if (response.success) {
+                                showProfileAlert('success', response.message);
+
+                                // If name was updated, update the navbar
+                                if (response.updatedName) {
+                                    $('#navbarDropdown').html('<i class="fas fa-user-circle me-1"></i>' + response.updatedName);
+                                }
+
+                                // Switch back to view mode after successful update
+                                $('#profileEditMode').hide();
+                                $('#profileViewMode').show();
+
+                                // Reload profile data
+                                loadProfileData();
+                            } else {
+                                showProfileAlert('danger', response.message);
+                                $('#saveProfileBtn').html('<i class="fas fa-save me-1"></i>Save Changes');
+                                $('#saveProfileBtn').prop('disabled', false);
+                            }
+                        },
+                        error: function() {
+                            showProfileAlert('danger', 'An error occurred while saving your profile.');
+                            $('#saveProfileBtn').html('<i class="fas fa-save me-1"></i>Save Changes');
+                            $('#saveProfileBtn').prop('disabled', false);
+                        }
+                    });
+                });
+            }
+
+            function showProfileAlert(type, message) {
+                const alertHtml = `
+                    <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                        ${message}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                `;
+                $('#profileAlerts').html(alertHtml);
+            }
+        </script>
+    }
+
+
+    
+    }
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

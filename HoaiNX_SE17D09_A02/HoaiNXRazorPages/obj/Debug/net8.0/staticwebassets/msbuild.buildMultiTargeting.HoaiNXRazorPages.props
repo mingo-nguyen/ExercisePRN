@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\HoaiNXRazorPages.props" />
+</Project>

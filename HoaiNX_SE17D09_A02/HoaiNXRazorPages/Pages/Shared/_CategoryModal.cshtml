@@ -1,0 +1,37 @@
+﻿<!-- Category Modal -->
+<div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="categoryModalLabel"><i class="fas fa-th-list"></i> <span id="modalTitle">Create Category</span></h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="categoryAlerts">
+                    <!-- Alerts will appear here -->
+                </div>
+                <form id="categoryForm">
+                    <input type="hidden" id="CategoryId" name="Category.CategoryId" value="0" />
+
+                    <div class="mb-3">
+                        <label for="CategoryName" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="CategoryName" name="Category.CategoryName" required />
+                        <span class="text-danger" id="CategoryNameError"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="CategoryDesciption" class="form-label">Description</label>
+                        <textarea class="form-control" id="CategoryDesciption" name="Category.CategoryDesciption" rows="3"></textarea>
+                        <span class="text-danger" id="CategoryDesciptionError"></span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="saveCategoryBtn">
+                    <i class="fas fa-save"></i> Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

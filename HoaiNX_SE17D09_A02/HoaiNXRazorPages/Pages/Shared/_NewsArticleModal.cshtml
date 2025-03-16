@@ -1,0 +1,143 @@
+﻿<!-- News Article Modal -->
+<div class="modal fade" id="newsArticleModal" tabindex="-1" aria-labelledby="newsArticleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="newsArticleModalLabel"><i class="fas fa-newspaper"></i> <span id="modalTitle">Create News Article</span></h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="newsArticleAlerts">
+                    <!-- Alerts will appear here -->
+                </div>
+                <form id="newsArticleForm">
+                    <div id="formContent">
+                        <div class="text-center p-4">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-2">Loading form...</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="saveArticleBtn">
+                    <i class="fas fa-save"></i> Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let isEdit = false;
+    let currentArticleId = null;
+
+    $(document).ready(function() {
+        // Create news button click
+        $('#createNewsBtn').click(function() {
+            isEdit = false;
+            currentArticleId = null;
+            $('#modalTitle').text('Create News Article');
+            loadNewsForm();
+            $('#newsArticleModal').modal('show');
+        });
+
+        // Edit news button click
+        $(document).on('click', '.edit-news', function() {
+            isEdit = true;
+            currentArticleId = $(this).data('id');
+            $('#modalTitle').text('Edit News Article');
+            loadNewsForm(currentArticleId);
+            $('#newsArticleModal').modal('show');
+        });
+
+        // Save button click
+        $('#saveArticleBtn').click(function() {
+            saveNewsArticle();
+        });
+
+        // When modal is hidden, destroy TinyMCE
+        $('#newsArticleModal').on('hidden.bs.modal', function() {
+            if (tinymce.get('editor')) {
+                tinymce.get('editor').remove();
+            }
+        });
+    });
+
+    function loadNewsForm(newsId = null) {
+        // Clear previous alerts
+        $('#newsArticleAlerts').empty();
+
+        let url = '/Staff/NewsArticles?handler=NewsArticleForm';
+        if (newsId) {
+            url += '&newsId=' + newsId;
+        }
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            headers: {
+                "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+            },
+            success: function(data) {
+                $('#formContent').html(data);
+                initializeTinyMCE();
+                setupTagsInput();
+            },
+            error: function() {
+                showNewsAlert('danger', 'Failed to load form. Please try again.');
+            }
+        });
+    }
+
+    function saveNewsArticle() {
+        // Make sure TinyMCE content is synced
+        if (tinymce.get('editor')) {
+            tinymce.get('editor').save();
+        }
+
+        // Validate form
+        if (!validateForm()) {
+            return;
+        }
+
+        // Disable button and show loading
+        toggleSaveButton(true);
+
+        // Get form data
+        const formData = $('#newsArticleForm').serialize();
+
+        // Send AJAX request
+        $.ajax({
+            url: isEdit ? '/Staff/NewsArticles?handler=UpdateNewsArticle' : '/Staff/NewsArticles?handler=CreateNewsArticle',
+            type: 'POST',
+            data: formData,
+            headers: {
+                "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+            },
+            success: function(response) {
+                if (response.success) {
+                    // Show success message
+                    showNewsAlert('success', response.message);
+
+                    // Close modal after a short delay
+                    setTimeout(function() {
+                        $('#newsArticleModal').modal('hide');
+                        window.location.reload();
+                    }, 1500);
+                } else {
+                    // Show error message
+                    showNewsAlert('danger', response.message);
+                    toggleSaveButton(false);
+                }
+            },
+            error: function() {
+                showNewsAlert('danger', 'An error occurred while saving the article.');
+                toggleSaveButton(false);
+            }
+        });
+    }
+</script>
