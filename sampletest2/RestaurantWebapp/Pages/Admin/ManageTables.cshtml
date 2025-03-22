@@ -1,0 +1,99 @@
+﻿@page
+@model RestaurantWebapp.Pages.Admin.ManageTablesModel
+@{
+    ViewData["Title"] = "Manage Tables";
+}
+
+<h1>Manage Tables</h1>
+
+<div class="mb-3">
+    <a asp-page="/Admin/AddTable" class="btn btn-success">Add New Table</a>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                Search Tables
+            </div>
+            <div class="card-body">
+                <form method="get">
+                    <div class="mb-3">
+                        <label asp-for="SearchSeats" class="form-label">Seats</label>
+                        <input asp-for="SearchSeats" class="form-control" min="0" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="SearchStatus" class="form-label">Status</label>
+                        <select asp-for="SearchStatus" class="form-select">
+                            <option value="">All Statuses</option>
+                            <option value="Available">Available</option>
+                            <option value="Reserved">Reserved</option>
+                            <option value="Occupied">Occupied</option>
+                            <option value="Maintenance">Maintenance</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        @if (Model.Tables.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Table Number</th>
+                            <th>Number of Seats</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var table in Model.Tables)
+                        {
+                            <tr>
+                                <td>@table.Id</td>
+                                <td>@table.TableNumber</td>
+                                <td>@table.Seats</td>
+                                <td>
+                                    <span class="badge @GetStatusBadgeClass(table.Status)">@table.Status</span>
+                                </td>
+                                <td>
+                                    <a asp-page="/Admin/EditTable" asp-route-id="@table.Id" class="btn btn-primary btn-sm">Edit</a>
+                                    <a asp-page="/TableDetails" asp-route-id="@table.Id" class="btn btn-info btn-sm">Details</a>
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info">
+                No tables found matching the search criteria.
+            </div>
+        }
+    </div>
+</div>
+
+@functions {
+    public string GetStatusBadgeClass(string status)
+    {
+        return status switch
+        {
+            "Available" => "bg-success",
+            "Reserved" => "bg-warning",
+            "Occupied" => "bg-danger",
+            "Maintenance" => "bg-secondary",
+            _ => "bg-light"
+        };
+    }
+}

@@ -1,0 +1,59 @@
+﻿@page
+@model RestaurantWebapp.Pages.Admin.AddTableModel
+@{
+    ViewData["Title"] = "Add New Table";
+}
+
+<h1>Add New Table</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                Table Details
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                    {
+                        <div class="alert alert-danger">
+                            @Model.ErrorMessage
+                        </div>
+                    }
+
+                    <div class="mb-3">
+                        <label asp-for="Table.TableNumber" class="form-label">Table Number</label>
+                        <input asp-for="Table.TableNumber" class="form-control" />
+                        <span asp-validation-for="Table.TableNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Table.Seats" class="form-label">Number of Seats</label>
+                        <input asp-for="Table.Seats" class="form-control" min="1" />
+                        <span asp-validation-for="Table.Seats" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Table.Status" class="form-label">Status</label>
+                        <select asp-for="Table.Status" class="form-select">
+                            <option value="Available">Available</option>
+                            <option value="Reserved">Reserved</option>
+                            <option value="Occupied">Occupied</option>
+                            <option value="Maintenance">Maintenance</option>
+                        </select>
+                        <span asp-validation-for="Table.Status" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-page="/Admin/ManageTables" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Save Table</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

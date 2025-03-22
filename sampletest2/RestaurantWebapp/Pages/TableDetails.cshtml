@@ -1,0 +1,86 @@
+﻿@page "{id:int}"
+@model RestaurantWebapp.Pages.TableDetailsModel
+@{
+    ViewData["Title"] = "Table Details";
+    var isAdmin = User.IsInRole("Admin");
+}
+
+<h1>Table Details</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                Table #@Model.Table.TableNumber
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-4">Table Number:</dt>
+                    <dd class="col-sm-8">@Model.Table.TableNumber</dd>
+
+                    <dt class="col-sm-4">Number of Seats:</dt>
+                    <dd class="col-sm-8">@Model.Table.Seats</dd>
+
+                    <dt class="col-sm-4">Status:</dt>
+                    <dd class="col-sm-8">
+                        <span class="badge @Model.GetStatusBadgeClass(Model.Table.Status)">
+                            @Model.Table.Status
+                        </span>
+                    </dd>
+                </dl>
+
+                <div class="d-flex justify-content-between mt-3">
+                    @if (isAdmin)
+                    {
+                        <a asp-page="/Admin/ManageTables" class="btn btn-secondary">Back to List</a>
+                        <a asp-page="/Admin/EditTable" asp-route-id="@Model.Table.Id" class="btn btn-primary">Edit Table</a>
+                    }
+                    else
+                    {
+                        <a asp-page="/Customer/TableSearch" class="btn btn-secondary">Back to Search</a>
+                        @if (Model.Table.Status == "Available")
+                        {
+                            <a asp-page="/Customer/MakeReservation" asp-route-tableId="@Model.Table.Id"
+                               asp-route-date="@DateTime.Today.ToString("yyyy-MM-dd")"
+                               class="btn btn-success">Make Reservation</a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (isAdmin && Model.Reservations.Any())
+    {
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    Reservations for this Table
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Customer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var reservation in Model.Reservations)
+                                {
+                                    <tr>
+                                        <td>@reservation.ReservationTime.ToShortDateString()</td>
+                                        <td>@reservation.ReservationTime.ToString("hh:mm tt")</td>
+                                        <td>@reservation.User.Username</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

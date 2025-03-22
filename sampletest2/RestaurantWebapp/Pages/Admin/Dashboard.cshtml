@@ -1,0 +1,38 @@
+﻿@page
+@model RestaurantWebapp.Pages.Admin.DashboardModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<h1>Admin Dashboard</h1>
+
+<div class="alert alert-success">
+    Welcome, Admin! From here you can manage reservations and update table statuses.
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                Manage Reservations
+            </div>
+            <div class="card-body">
+                <p>View and manage customer reservations.</p>
+                <a href="#" class="btn btn-primary">View Reservations</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                Manage Tables
+            </div>
+            <div class="card-body">
+                <p>Update table availability and status.</p>
+                <a asp-page="/Admin/ManageTables" class="btn btn-primary">Manage Tables</a>
+            </div>
+
+        </div>
+    </div>
+</div>

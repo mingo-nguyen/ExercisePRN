@@ -1,0 +1,39 @@
+﻿@page
+@model RestaurantWebapp.Pages.Customer.DashboardModel
+@{
+    ViewData["Title"] = "Customer Dashboard";
+}
+
+<h1>Customer Dashboard</h1>
+
+<div class="alert alert-success">
+    Welcome! From here you can search for available tables, make reservations, and view your reservation history.
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                Make a Reservation
+            </div>
+            <div class="card-body">
+                <p>Search for available tables and make a new reservation.</p>
+                <a asp-page="/Customer/TableSearch" class="btn btn-primary">Make New Reservation</a>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                My Reservations
+            </div>
+            <div class="card-body">
+                <p>View your reservation history and upcoming reservations.</p>
+                <a asp-page="/Customer/MyReservations" class="btn btn-primary">View History</a>
+            </div>
+
+        </div>
+    </div>
+</div>

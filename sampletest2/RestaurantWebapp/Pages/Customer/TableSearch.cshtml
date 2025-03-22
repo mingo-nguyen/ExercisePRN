@@ -1,0 +1,78 @@
+﻿@page
+@model RestaurantWebapp.Pages.Customer.TableSearchModel
+@{
+    ViewData["Title"] = "Find Available Tables";
+}
+
+<h1>Find Available Tables</h1>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                Search Criteria
+            </div>
+            <div class="card-body">
+                <form method="get">
+                    <div class="mb-3">
+                        <label asp-for="SeatsRequired" class="form-label">Number of Seats</label>
+                        <input asp-for="SeatsRequired" class="form-control" min="1" />
+                        <span asp-validation-for="SeatsRequired" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ReservationDate" class="form-label">Date</label>
+                        <input asp-for="ReservationDate" class="form-control" type="date" />
+                        <span asp-validation-for="ReservationDate" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Search Tables</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.HasSearched)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Available Tables</h2>
+
+            @if (Model.AvailableTables.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Table Number</th>
+                                <th>Number of Seats</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var table in Model.AvailableTables)
+                            {
+                                <tr>
+                                    <td>@table.TableNumber</td>
+                                    <td>@table.Seats</td>
+                                    <td>@table.Status</td>
+                                    <td>
+                                        <a asp-page="/Customer/MakeReservation" asp-route-tableId="@table.Id"
+                                           asp-route-date="@Model.ReservationDate.ToString("yyyy-MM-dd")"
+                                           class="btn btn-success btn-sm">Reserve</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info">
+                    No tables available for the selected criteria. Please try different search parameters.
+                </div>
+            }
+        </div>
+    </div>
+}

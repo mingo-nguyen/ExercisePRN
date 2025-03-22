@@ -1,0 +1,79 @@
+﻿@page
+@model RestaurantWebapp.Pages.Customer.MyReservationsModel
+@{
+    ViewData["Title"] = "My Reservations";
+}
+
+<h1>My Reservations</h1>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<div class="mb-3">
+    <a asp-page="/Customer/TableSearch" class="btn btn-primary">Make New Reservation</a>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link @(Model.ShowPastReservations ? "" : "active")" asp-page="/Customer/MyReservations" asp-route-showPast="false">Upcoming Reservations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(Model.ShowPastReservations ? "active" : "")" asp-page="/Customer/MyReservations" asp-route-showPast="true">Past Reservations</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                @if (Model.Reservations.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Table Number</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Seats</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var reservation in Model.Reservations)
+                                {
+                                    <tr>
+                                        <td>@reservation.Table.TableNumber</td>
+                                        <td>@reservation.ReservationTime.ToShortDateString()</td>
+                                        <td>@reservation.ReservationTime.ToString("hh:mm tt")</td>
+                                        <td>@reservation.Table.Seats</td>
+                                        <td>
+                                            @if (!Model.ShowPastReservations)
+                                            {
+                                                <form method="post" asp-page-handler="CancelReservation" asp-route-id="@reservation.Id"
+                                                      onsubmit="return confirm('Are you sure you want to cancel this reservation?');">
+                                                    <button type="submit" class="btn btn-danger btn-sm">Cancel</button>
+                                                </form>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-info">
+                        @(Model.ShowPastReservations ? "You don't have any past reservations." : "You don't have any upcoming reservations.")
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
